@@ -1045,6 +1045,22 @@ namespace eos
                         &NonlocalFormFactorObservable<nc::BToKstar, nc::PToV>::re_H_long,
                         std::make_tuple("q2")),
 
+                // B_s->phi
+                make_observable("B_s->phigamma^*::Re{H_perp}(q2)",
+                        &NonlocalFormFactorObservable<nc::BsToPhi, nc::PToV>::re_H_perp,
+                        std::make_tuple("q2"),
+                        Options{ { "q", "s" } }),
+
+                make_observable("B_s->phigamma^*::Re{H_para}(q2)",
+                        &NonlocalFormFactorObservable<nc::BsToPhi, nc::PToV>::re_H_para,
+                        std::make_tuple("q2"),
+                        Options{ { "q", "s" } }),
+
+                make_observable("B_s->phigamma^*::Re{H_long}(q2)",
+                        &NonlocalFormFactorObservable<nc::BsToPhi, nc::PToV>::re_H_long,
+                        std::make_tuple("q2"),
+                        Options{ { "q", "s" } }),
+
                 // auxiliary variables, e.g. for determining the B-LCSR threshold parameters
                 make_observable("B->K^*gamma^*::Re{H_1}[s^1/s^0](q2)",
                         &NonlocalFormFactorObservable<nc::BToKstar, nc::PToV>::re_normalized_moment_V1,
