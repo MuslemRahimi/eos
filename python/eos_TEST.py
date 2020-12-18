@@ -98,7 +98,7 @@ class PythonTests:
 
         obs = None
         try:
-            obs = Observable.make('B->K^*ll::A_FB(q2)@LargeRecoil', Parameters.Defaults(), Kinematics(q2=1.0),
+            obs = Observable.make('B->D^*lnu::A_FB(q2)', Parameters.Defaults(), Kinematics(q2=1.0),
                     Options(model='SM'))
         except:
             raise TestFailedError('cannot create Observable')
@@ -106,7 +106,7 @@ class PythonTests:
         if not obs:
             raise TestFailedError('lookup of Observable failed')
 
-        if not obs.name() == 'B->K^*ll::A_FB(q2)@LargeRecoil':
+        if not obs.name() == 'B->D^*lnu::A_FB(q2)':
             raise TestFailedError('cannot obtain Observable name')
 
         value = None
