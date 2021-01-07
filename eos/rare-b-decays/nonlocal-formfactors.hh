@@ -311,6 +311,22 @@ namespace eos
             ///@}
     };
     extern template class NonlocalFormFactorObservable<nc::BToKstar, nc::PToV>;
+
+
+    namespace nc_utils
+    {
+
+        complex<double> z(const double & q2, complex<double> s_plus, complex<double> s_0);
+        complex<double> blaschke_cc(const complex<double> z, const complex<double> z_Jpsi, const complex<double> z_psi2S);
+        complex<double> P(complex<double> z, const complex<double> & alpha_0, const complex<double> & alpha_1, const complex<double> & alpha_2);
+        complex<double> PGvDV2020(complex<double> z, const complex<double> zXY,
+            const complex<double> & alpha_0, const complex<double> & alpha_1, const complex<double> & alpha_2);
+
+    }
+
+
+
+
 }
 
 #endif

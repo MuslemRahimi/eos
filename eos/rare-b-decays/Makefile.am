@@ -73,9 +73,10 @@ TESTS = \
 	hard-scattering_TEST \
 	lambda-b-to-lambda-dilepton_TEST \
 	long-distance_TEST \
-	qcdf-integrals_TEST
+	qcdf-integrals_TEST \
 	nonlocal-formfactors-p-to-p_TEST \
-	nonlocal-formfactors-p-to-v_TEST
+	nonlocal-formfactors-p-to-v_TEST \
+	b-to-kstar-charmonium-gvdv2020_TEST
 XFAIL_TESTS = \
 	exclusive-b-to-s-dilepton-large-recoil_TEST # One of the QCDF integrals has a bug in the imaginary part
 LDADD = \
@@ -114,3 +115,5 @@ qcdf_integrals_TEST_SOURCES = qcdf-integrals_TEST.cc
 nonlocal_formfactors_p_to_p_TEST_SOURCES = nonlocal-formfactors-p-to-p_TEST.cc
 
 nonlocal_formfactors_p_to_v_TEST_SOURCES = nonlocal-formfactors-p-to-v_TEST.cc
+
+b_to_kstar_charmonium_gvdv2020_TEST_SOURCES = b-to-kstar-charmonium-gvdv2020_TEST.cc
