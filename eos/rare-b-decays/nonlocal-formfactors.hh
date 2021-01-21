@@ -331,6 +331,41 @@ namespace eos
     extern template class NonlocalFormFactorObservable<nc::BToKstar, nc::PToV>;
 
 
+    //  OneHalfPlus -> OneHalfPlus
+
+    template <>
+    class NonlocalFormFactor<nc::OneHalfPlusToOneHalfPlus> :
+        public virtual ParameterUser
+    {
+        public:
+
+            virtual complex<double> H_V_perp(const double & q2) const = 0;
+            virtual complex<double> H_V_long(const double & q2) const = 0;
+
+            virtual complex<double> H_V_perp_residue_jpsi() const = 0;
+            virtual complex<double> H_V_long_residue_jpsi() const = 0;
+
+            virtual complex<double> H_V_perp_residue_psi2s() const = 0;
+            virtual complex<double> H_V_long_residue_psi2s() const = 0;
+
+            virtual complex<double> H_A_perp(const double & q2) const = 0;
+            virtual complex<double> H_A_long(const double & q2) const = 0;
+
+            virtual complex<double> H_A_perp_residue_jpsi() const = 0;
+            virtual complex<double> H_A_long_residue_jpsi() const = 0;
+
+            virtual complex<double> H_A_perp_residue_psi2s() const = 0;
+            virtual complex<double> H_A_long_residue_psi2s() const = 0;
+
+            /// Factory method.
+            static NonlocalFormFactorPtr<nc::OneHalfPlusToOneHalfPlus> make(const QualifiedName & name, const Parameters & p, const Options & o);
+
+            ///Internal diagnostics for unit tests
+            virtual Diagnostics diagnostics() const = 0;
+
+    };
+
+
     namespace nc_utils
     {
 

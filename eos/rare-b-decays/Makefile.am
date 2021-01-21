@@ -27,11 +27,13 @@ libeosrarebdecays_la_SOURCES = \
 	nonlocal-formfactors.hh nonlocal-formfactors.cc \
 	nonlocal-formfactors-p-to-p.cc \
 	nonlocal-formfactors-p-to-v.cc \
+	nonlocal-formfactors-onehalfplus-to-onehalfplus.cc \
 	observables.cc observables.hh \
 	qcdf-integrals.cc qcdf-integrals.hh \
 	qcdf-integrals-analytical.cc \
 	qcdf-integrals-mixed.cc \
 	qcdf-integrals-numerical.cc
+# 	Lambdab-to-Lambda-ll.cc Lambdab-to-Lambda-ll.hh
 libeosrarebdecays_la_CXXFLAGS = $(AM_CXXFLAGS) $(GSL_CXXFLAGS)
 libeosrarebdecays_la_LDFLAGS = $(GSL_LDFLAGS)
 libeosrarebdecays_la_LIBADD = \
@@ -82,12 +84,13 @@ TESTS = \
 	inclusive-b-to-s-dilepton_TEST \
 	inclusive-b-to-s-gamma_TEST \
 	hard-scattering_TEST \
-	lambda-b-to-lambda-dilepton_TEST \
 	long-distance_TEST \
 	qcdf-integrals_TEST \
 	nonlocal-formfactors-p-to-p_TEST \
 	nonlocal-formfactors-p-to-v_TEST \
+	nonlocal-formfactors-onehalfplus-to-onehalfplus_TEST \
 	b-to-kstar-charmonium_TEST
+#	lambda-b-to-lambda-dilepton_TEST
 XFAIL_TESTS = \
 	exclusive-b-to-s-dilepton-large-recoil_TEST # One of the QCDF integrals has a bug in the imaginary part
 LDADD = \
@@ -117,7 +120,7 @@ inclusive_b_to_s_gamma_TEST_SOURCES = inclusive-b-to-s-gamma_TEST.cc
 
 hard_scattering_TEST_SOURCES = hard-scattering_TEST.cc
 
-lambda_b_to_lambda_dilepton_TEST_SOURCES = lambda-b-to-lambda-dilepton_TEST.cc
+#lambda_b_to_lambda_dilepton_TEST_SOURCES = lambda-b-to-lambda-dilepton_TEST.cc
 
 long_distance_TEST_SOURCES = long-distance_TEST.cc
 
@@ -126,5 +129,7 @@ qcdf_integrals_TEST_SOURCES = qcdf-integrals_TEST.cc
 nonlocal_formfactors_p_to_p_TEST_SOURCES = nonlocal-formfactors-p-to-p_TEST.cc
 
 nonlocal_formfactors_p_to_v_TEST_SOURCES = nonlocal-formfactors-p-to-v_TEST.cc
+
+nonlocal_formfactors_onehalfplus_to_onehalfplus_TEST_SOURCES = nonlocal-formfactors-onehalfplus-to-onehalfplus_TEST.cc
 
 b_to_kstar_charmonium_TEST_SOURCES = b-to-kstar-charmonium_TEST.cc
