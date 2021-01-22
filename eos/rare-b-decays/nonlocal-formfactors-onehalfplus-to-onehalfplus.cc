@@ -143,7 +143,7 @@ namespace eos
 
                 ~BRvD2021() = default;
 
-                inline double beta(const double param) const
+                inline complex<double> beta(const complex<double> param) const
                 {
                     const double s_plus = 4.0 * pow(m_D0, 2.0);
 
@@ -159,9 +159,9 @@ namespace eos
                     // phi_(A,long)    0    1    4    0    1
                     // phi_(A,perp)    0    0    3    0    1
 
-                    const double m_Lam2  = pow(m_Lam, 2);
-                    const double m_LamB2  = pow(m_LamB, 2);
-                    const double m_D02 = pow(m_D0, 2);
+                    const double m_Lam2  = pow(m_Lam, 2.0 );
+                    const double m_LamB2  = pow(m_LamB, 2.0 );
+                    const double m_D02 = pow(m_D0, 2.0 );
 
                     const double s_0    = this->t_0();
                     const double s_plus = 4.0 * m_D02;
