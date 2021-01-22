@@ -40,9 +40,10 @@ class NonlocalFormFactorBRvD2021Test :
                 Parameters p = Parameters::Defaults();
                 p["mass::J/psi"]                             = 3.0969;
                 p["mass::psi(2S)"]                           = 3.6860;
-                p["mass::D^0"]                               = 1.86723;
+                p["mass::D^0"]                               = 1.86483;
                 p["b->sccbar::t_0"]                          = 9.0;
                 p["b->sccbar::t_s"]                          = -17.4724;
+                p["b->sccbar::chiOPE@GvDV2020"]              = 1.81e-4;
 
                 Options o = { { "model", "WilsonScan" } };
 
@@ -61,13 +62,15 @@ class NonlocalFormFactorBRvD2021Test :
                 static const std::vector<std::pair<double, double>> reference
                 {
 
-<<<<<<< HEAD
-                    std::make_pair( 0.0, eps),            // real(z(q2 = 10.0))
-                    std::make_pair( 0.0, eps),            // img(z(q2 = 10.0))
-=======
-                    std::make_pair( 0.0, eps),            // z(q2=10.0)
-                    std::make_pair( 0.0, eps),            // z(q2=10.0)
->>>>>>> d10d9adeacac680c1314b4d779db69486417d668
+                    std::make_pair( -0.402961, eps),            // real(z(q2 = 10.0))
+                    std::make_pair( 0.915217, eps),            // img(z(q2 = 10.0))
+
+                    std::make_pair( 7.05783, 10*eps),         // Re{phi_V_long(q2 = 16.0)}
+                    std::make_pair( 33.5449,  10*eps),        // Im{phi_V_long(q2 = 16.0)}
+
+                    std::make_pair( 0.752572,  eps),         // Re{alpha_LbL}
+                    std::make_pair( 0.0,  eps),             // Im{alpha_Lbl}
+
                 };
 
                 TEST_CHECK_DIAGNOSTICS(diagnostics, reference);

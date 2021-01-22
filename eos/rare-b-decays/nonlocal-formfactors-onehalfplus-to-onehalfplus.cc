@@ -396,8 +396,22 @@ namespace eos
                     Diagnostics results;
 
                     const double s_0   = this->t_0();
-                    results.add({ real(eos::nc_utils::z(10.0, 4.0 * pow(m_D0, 2), s_0)), "real(z(q2 = 10.0))" });
-                    results.add({ imag(eos::nc_utils::z(10.0, 4.0 * pow(m_D0, 2), s_0)), "imag(z(q2 = 10.0))" });
+                    const double s_p   = 4.0 * pow(m_D0, 2);
+
+                    const auto zLbL    = eos::nc_utils::z(pow(m_LamB + m_Lam, 2.0), s_p, s_0);
+
+                    const complex<double> alpha_LbL = std::abs(std::arg(zLbL));
+
+                    results.add({ real(eos::nc_utils::z(16.0, 4.0 * pow(m_D0, 2), s_0)), "real(z(q2 = 16.0))" });
+                    results.add({ imag(eos::nc_utils::z(16.0, 4.0 * pow(m_D0, 2), s_0)), "imag(z(q2 = 16.0))" });
+
+                    const unsigned phiParamlong[5] = {1, 0, 4, 1, 0}; // V_long polarization
+                    results.add({ real(this->phi(16.0, phiParamlong)), "Re{phi_long(q2 = 16.0)}" });
+                    results.add({ imag(this->phi(16.0, phiParamlong)), "Im{phi_long(q2 = 16.0)}" });
+
+                    results.add({ real(alpha_LbL), "Re{alpha_LbL}" });
+                    results.add({ imag(alpha_LbL), "Im{alpha_LbL}" });
+
 
                     return results;
                 }
