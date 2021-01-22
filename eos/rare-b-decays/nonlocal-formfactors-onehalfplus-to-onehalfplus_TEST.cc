@@ -61,8 +61,13 @@ class NonlocalFormFactorBRvD2021Test :
                 static const std::vector<std::pair<double, double>> reference
                 {
 
+<<<<<<< HEAD
                     std::make_pair( 0.0, eps),            // real(z(q2 = 10.0))
                     std::make_pair( 0.0, eps),            // img(z(q2 = 10.0))
+=======
+                    std::make_pair( 0.0, eps),            // z(q2=10.0)
+                    std::make_pair( 0.0, eps),            // z(q2=10.0)
+>>>>>>> d10d9adeacac680c1314b4d779db69486417d668
                 };
 
                 TEST_CHECK_DIAGNOSTICS(diagnostics, reference);
