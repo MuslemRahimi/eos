@@ -62,6 +62,7 @@ class NonlocalFormFactorBRvD2021Test :
                 {
 
                     std::make_pair( 0.0, eps),            // z(q2=10.0)
+                    std::make_pair( 0.0, eps),            // z(q2=10.0)
                 };
 
                 TEST_CHECK_DIAGNOSTICS(diagnostics, reference);
