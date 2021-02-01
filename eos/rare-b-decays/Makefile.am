@@ -24,6 +24,7 @@ libeosrarebdecays_la_SOURCES = \
 	hard-scattering.cc hard-scattering.hh \
 	long-distance.cc long-distance.hh \
 	lambda-b-to-lambda-dilepton.cc lambda-b-to-lambda-dilepton.hh \
+	lambdab-to-lambda-charmonium.cc lambdab-to-lambda-charmonium.hh \
 	nonlocal-formfactors.hh nonlocal-formfactors.cc \
 	nonlocal-formfactors-p-to-p.cc \
 	nonlocal-formfactors-p-to-v.cc \

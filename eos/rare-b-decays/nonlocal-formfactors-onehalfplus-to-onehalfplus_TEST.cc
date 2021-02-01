@@ -34,7 +34,7 @@ class NonlocalFormFactorBRvD2021Test :
 
         virtual void run() const
         {
-            static const double eps = 1e-5;
+            static const double eps = 1e-4;
 
             {
                 Parameters p = Parameters::Defaults();
@@ -60,16 +60,26 @@ class NonlocalFormFactorBRvD2021Test :
                 std::cout << "Diagnostics ended" << std::endl;
 
                 static const std::vector<std::pair<double, double>> reference
-                {
+                {   
 
-                    std::make_pair( -0.402961, eps),            // real(z(q2 = 10.0))
-                    std::make_pair( 0.915217, eps),            // img(z(q2 = 10.0))
-
-                    std::make_pair( 7.05783, 10*eps),         // Re{phi_V_long(q2 = 16.0)}
-                    std::make_pair( 33.5449,  10*eps),        // Im{phi_V_long(q2 = 16.0)}
-
-                    std::make_pair( 0.752572,  eps),         // Re{alpha_LbL}
+                    std::make_pair( 0.752572, eps),         // Re{alpha_LbL}
                     std::make_pair( 0.0,  eps),             // Im{alpha_Lbl}
+
+
+                    std::make_pair( -0.402961, eps),        // real(z(q2 = 10.0))
+                    std::make_pair( 0.915217, eps),         // img(z(q2 = 10.0))
+
+                    std::make_pair( 7.05783, eps),         // Re{phi_V_long(q2 = 16.0)}
+                    std::make_pair( 33.5449,  eps),        // Im{phi_V_long(q2 = 16.0)}
+
+                    std::make_pair( 4.19156, eps),        // Re{phi_V_perp(q2 = 16.0)}
+                    std::make_pair( 19.9219,  eps),        // Im{phi_V_perp(q2 = 16.0)}
+
+                    std::make_pair( 12.3545, eps),        // Re{phi_A_long(q2 = 16.0)}
+                    std::make_pair( 58.7191,  eps),        // Im{phi_A_long(q2 = 16.0)}
+
+                    std::make_pair( 10.9722, eps),        // Re{phi_A_perp(q2 = 16.0)}
+                    std::make_pair( 52.1494,  eps),        // Im{phi_A_perp(q2 = 16.0)}
 
                 };
 

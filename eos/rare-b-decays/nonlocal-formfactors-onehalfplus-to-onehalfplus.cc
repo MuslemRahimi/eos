@@ -185,33 +185,31 @@ namespace eos
                 inline complex<double> H_residue_jpsi(const unsigned phiParam[5], const complex<double> & alpha_0, const complex<double> & alpha_1,
                   const complex<double> & alpha_2) const
                 {
-                    const double m_Jpsi2  = pow(m_Jpsi, 2);
-                    const double m_psi2S2 = pow(m_psi2S, 2);
+                    const double m_Jpsi2  = pow(m_Jpsi, 2.0);
+                    const double m_psi2S2 = pow(m_psi2S, 2.0);
 
                     const double s_0   = this->t_0();
-                    const double s_p   = 4.0 * pow(m_D0, 2);
+                    const double s_p   = 4.0 * pow(m_D0, 2.0);
                     const auto zLbL    = eos::nc_utils::z(pow(m_LamB + m_Lam, 2.0), s_p, s_0);
                     const auto z_Jpsi  = eos::nc_utils::z(m_Jpsi2,                  s_p, s_0);
                     const auto z_psi2S = eos::nc_utils::z(m_psi2S2,                 s_p, s_0);
 
-                    return eos::nc_utils::PGvDV2020(z_Jpsi, zLbL, alpha_0, alpha_1, alpha_2) / phi(m_Jpsi2, phiParam) *
-                            (1 - norm(z_Jpsi)) * (1. - z_Jpsi*std::conj(z_psi2S)) / (z_Jpsi - z_psi2S);
+                    return eos::nc_utils::PGvDV2020(z_Jpsi, zLbL, alpha_0, alpha_1, alpha_2) / (phi(m_Jpsi2, phiParam) * (-0.036)); //Eq. (3.37)
                 };
 
                 inline complex<double> H_residue_psi2s(const unsigned phiParam[5], const complex<double> & alpha_0, const complex<double> & alpha_1,
                  const complex<double> & alpha_2) const
                 {
-                    const double m_Jpsi2  = pow(m_Jpsi, 2);
-                    const double m_psi2S2 = pow(m_psi2S, 2);
+                    const double m_Jpsi2  = pow(m_Jpsi, 2.0);
+                    const double m_psi2S2 = pow(m_psi2S, 2.0);
 
                     const double s_0   = this->t_0();
-                    const double s_p   = 4.0 * pow(m_D0, 2);
+                    const double s_p   = 4.0 * pow(m_D0, 2.0);
                     const auto zLbL    = eos::nc_utils::z(pow(m_LamB + m_Lam, 2.0), s_p, s_0);
                     const auto z_Jpsi  = eos::nc_utils::z(m_Jpsi2,                  s_p, s_0);
                     const auto z_psi2S = eos::nc_utils::z(m_psi2S2,                 s_p, s_0);
 
-                    return eos::nc_utils::PGvDV2020(z_psi2S, zLbL, alpha_0, alpha_1, alpha_2) / phi(m_psi2S2, phiParam) *
-                            (1 - norm(z_psi2S)) * (1. - z_psi2S*std::conj(z_Jpsi)) / (z_psi2S - z_Jpsi);
+                    return eos::nc_utils::PGvDV2020(z_psi2S, zLbL, alpha_0, alpha_1, alpha_2) / (phi(m_psi2S2, phiParam) * (0.604)); //Eq. (3.37)
                 };
 
 
@@ -369,7 +367,7 @@ namespace eos
                     const complex<double> alpha_1 = complex<double>(re_alpha_1_A_long, im_alpha_1_A_long);
                     const complex<double> alpha_2 = complex<double>(re_alpha_2_A_long, im_alpha_2_A_long);
 
-                    const unsigned phiParam[5] = {0,1,4,0,1};
+                    const unsigned phiParam[5] = {0,0,3,0,1};
 
                     return H_residue_jpsi(phiParam, alpha_0, alpha_1, alpha_2);
                 };
@@ -402,15 +400,31 @@ namespace eos
 
                     const complex<double> alpha_LbL = std::abs(std::arg(zLbL));
 
+                    results.add({ real(alpha_LbL), "Re{alpha_LbL}" });
+                    results.add({ imag(alpha_LbL), "Im{alpha_LbL}" });
+
+
                     results.add({ real(eos::nc_utils::z(16.0, 4.0 * pow(m_D0, 2), s_0)), "real(z(q2 = 16.0))" });
                     results.add({ imag(eos::nc_utils::z(16.0, 4.0 * pow(m_D0, 2), s_0)), "imag(z(q2 = 16.0))" });
 
-                    const unsigned phiParamlong[5] = {1, 0, 4, 1, 0}; // V_long polarization
-                    results.add({ real(this->phi(16.0, phiParamlong)), "Re{phi_long(q2 = 16.0)}" });
-                    results.add({ imag(this->phi(16.0, phiParamlong)), "Im{phi_long(q2 = 16.0)}" });
+                    const unsigned phiParam_V_long[5] = {1, 0, 4, 1, 0};  // V_long polarization
+                    results.add({ real(this->phi(16.0, phiParam_V_long)), "Re{phi_V_long(q2 = 16.0)}" });
+                    results.add({ imag(this->phi(16.0, phiParam_V_long)), "Im{phi_V_long(q2 = 16.0)}" });
 
-                    results.add({ real(alpha_LbL), "Re{alpha_LbL}" });
-                    results.add({ imag(alpha_LbL), "Im{alpha_LbL}" });
+                    const unsigned phiParam_V_perp[5] = {0, 0, 3, 1, 0}; // V_perp polarization
+
+                    results.add({ real(this->phi(16.0, phiParam_V_perp)), "Re{phi_V_perp(q2 = 16.0)}" });
+                    results.add({ imag(this->phi(16.0, phiParam_V_perp)), "Im{phi_V_perp(q2 = 16.0)}" });
+
+                    const unsigned phiParam_A_long[5] = {0, 1, 4, 0, 1}; // A_long polarization
+
+                    results.add({ real(this->phi(16.0, phiParam_A_long)), "Re{phi_A_long(q2 = 16.0)}" });
+                    results.add({ imag(this->phi(16.0, phiParam_A_long)), "Im{phi_A_long(q2 = 16.0)}" });
+
+                     const unsigned phiParam_A_perp[5] ={0, 0, 3, 0, 1}; // A_perp polarization
+
+					results.add({ real(this->phi(16.0, phiParam_A_perp)), "Re{phi_A_long(q2 = 16.0)}" });
+					results.add({ imag(this->phi(16.0, phiParam_A_perp)), "Im{phi_A_long(q2 = 16.0)}" });
 
 
                     return results;
