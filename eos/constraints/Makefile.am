@@ -17,6 +17,7 @@ CONSTRAINTS_FILES = \
 	Bs-to-Ds-gamma-l-nu.yaml \
 	hqet.yaml \
 	Lb-to-L-ll.yaml \
+	Lb-to-L-Charmonium.yaml \
 	Lb-to-Lq-form-factors.yaml \
 	miscellaneous.yaml
 

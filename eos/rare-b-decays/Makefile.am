@@ -90,7 +90,8 @@ TESTS = \
 	nonlocal-formfactors-p-to-p_TEST \
 	nonlocal-formfactors-p-to-v_TEST \
 	nonlocal-formfactors-onehalfplus-to-onehalfplus_TEST \
-	b-to-kstar-charmonium_TEST
+	b-to-kstar-charmonium_TEST \
+	lambdab-to-lambda-charmonium_TEST
 #	lambda-b-to-lambda-dilepton_TEST
 XFAIL_TESTS = \
 	exclusive-b-to-s-dilepton-large-recoil_TEST # One of the QCDF integrals has a bug in the imaginary part
@@ -134,3 +135,6 @@ nonlocal_formfactors_p_to_v_TEST_SOURCES = nonlocal-formfactors-p-to-v_TEST.cc
 nonlocal_formfactors_onehalfplus_to_onehalfplus_TEST_SOURCES = nonlocal-formfactors-onehalfplus-to-onehalfplus_TEST.cc
 
 b_to_kstar_charmonium_TEST_SOURCES = b-to-kstar-charmonium_TEST.cc
+
+lambdab_to_lambda_charmonium_TEST_SOURCES = lambdab-to-lambda-charmonium_TEST.cc
+

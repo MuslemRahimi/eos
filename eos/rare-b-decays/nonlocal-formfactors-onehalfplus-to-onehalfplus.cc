@@ -194,7 +194,7 @@ namespace eos
                     const auto z_Jpsi  = eos::nc_utils::z(m_Jpsi2,                  s_p, s_0);
                     const auto z_psi2S = eos::nc_utils::z(m_psi2S2,                 s_p, s_0);
 
-                    return eos::nc_utils::PGvDV2020(z_Jpsi, zLbL, alpha_0, alpha_1, alpha_2) / (phi(m_Jpsi2, phiParam) * (-0.036)); //Eq. (3.37)
+                    return eos::nc_utils::PGvDV2020(z_Jpsi, zLbL, alpha_0, alpha_1, alpha_2) / (phi(m_Jpsi2, phiParam) * (-0.0329971)); //Eq. (3.37)
                 };
 
                 inline complex<double> H_residue_psi2s(const unsigned phiParam[5], const complex<double> & alpha_0, const complex<double> & alpha_1,
@@ -209,7 +209,7 @@ namespace eos
                     const auto z_Jpsi  = eos::nc_utils::z(m_Jpsi2,                  s_p, s_0);
                     const auto z_psi2S = eos::nc_utils::z(m_psi2S2,                 s_p, s_0);
 
-                    return eos::nc_utils::PGvDV2020(z_psi2S, zLbL, alpha_0, alpha_1, alpha_2) / (phi(m_psi2S2, phiParam) * (0.604)); //Eq. (3.37)
+                    return eos::nc_utils::PGvDV2020(z_psi2S, zLbL, alpha_0, alpha_1, alpha_2) / (phi(m_psi2S2, phiParam) * (0.440234)); //Eq. (3.37)
                 };
 
 
@@ -363,9 +363,9 @@ namespace eos
 
                 virtual complex<double> H_A_perp_residue_jpsi() const
                 {
-                    const complex<double> alpha_0 = complex<double>(re_alpha_0_A_long, im_alpha_0_A_long);
-                    const complex<double> alpha_1 = complex<double>(re_alpha_1_A_long, im_alpha_1_A_long);
-                    const complex<double> alpha_2 = complex<double>(re_alpha_2_A_long, im_alpha_2_A_long);
+                    const complex<double> alpha_0 = complex<double>(re_alpha_0_A_perp, im_alpha_0_A_perp);
+                    const complex<double> alpha_1 = complex<double>(re_alpha_1_A_perp, im_alpha_1_A_perp);
+                    const complex<double> alpha_2 = complex<double>(re_alpha_2_A_perp, im_alpha_2_A_perp);
 
                     const unsigned phiParam[5] = {0,0,3,0,1};
 
@@ -395,36 +395,72 @@ namespace eos
 
                     const double s_0   = this->t_0();
                     const double s_p   = 4.0 * pow(m_D0, 2);
+                    const double q2    = 16.0;
 
                     const auto zLbL    = eos::nc_utils::z(pow(m_LamB + m_Lam, 2.0), s_p, s_0);
+                    const auto z_Jpsi  = eos::nc_utils::z(pow(m_Jpsi, 2),           s_p, s_0);
+                    const auto z_psi2S = eos::nc_utils::z(pow(m_psi2S, 2),          s_p, s_0);
+                    const auto z       = eos::nc_utils::z(q2,                       s_p, s_0);
 
                     const complex<double> alpha_LbL = std::abs(std::arg(zLbL));
+                    const complex<double> blaschke_factor = eos::nc_utils::blaschke_cc(z, z_Jpsi, z_psi2S);
 
                     results.add({ real(alpha_LbL), "Re{alpha_LbL}" });
                     results.add({ imag(alpha_LbL), "Im{alpha_LbL}" });
 
+                    results.add({ real(blaschke_factor), "Re{blaschke_factor(q2 = 16)}" });
+                    results.add({ imag(blaschke_factor), "Im{blaschke_factor(q2 = 16)}" });
 
-                    results.add({ real(eos::nc_utils::z(16.0, 4.0 * pow(m_D0, 2), s_0)), "real(z(q2 = 16.0))" });
-                    results.add({ imag(eos::nc_utils::z(16.0, 4.0 * pow(m_D0, 2), s_0)), "imag(z(q2 = 16.0))" });
+                    results.add({ real(eos::nc_utils::z(q2, s_p, s_0)), "real(z(q2 = 16.0))" });
+                    results.add({ imag(eos::nc_utils::z(q2, s_p, s_0)), "imag(z(q2 = 16.0))" });
 
+                    //===================Testcase for outer function======================//
                     const unsigned phiParam_V_long[5] = {1, 0, 4, 1, 0};  // V_long polarization
                     results.add({ real(this->phi(16.0, phiParam_V_long)), "Re{phi_V_long(q2 = 16.0)}" });
                     results.add({ imag(this->phi(16.0, phiParam_V_long)), "Im{phi_V_long(q2 = 16.0)}" });
 
                     const unsigned phiParam_V_perp[5] = {0, 0, 3, 1, 0}; // V_perp polarization
 
-                    results.add({ real(this->phi(16.0, phiParam_V_perp)), "Re{phi_V_perp(q2 = 16.0)}" });
-                    results.add({ imag(this->phi(16.0, phiParam_V_perp)), "Im{phi_V_perp(q2 = 16.0)}" });
+                    results.add({ real(this->phi(q2, phiParam_V_perp)), "Re{phi_V_perp(q2 = 16.0)}" });
+                    results.add({ imag(this->phi(q2, phiParam_V_perp)), "Im{phi_V_perp(q2 = 16.0)}" });
 
                     const unsigned phiParam_A_long[5] = {0, 1, 4, 0, 1}; // A_long polarization
 
-                    results.add({ real(this->phi(16.0, phiParam_A_long)), "Re{phi_A_long(q2 = 16.0)}" });
-                    results.add({ imag(this->phi(16.0, phiParam_A_long)), "Im{phi_A_long(q2 = 16.0)}" });
+                    results.add({ real(this->phi(q2, phiParam_A_long)), "Re{phi_A_long(q2 = 16.0)}" });
+                    results.add({ imag(this->phi(q2, phiParam_A_long)), "Im{phi_A_long(q2 = 16.0)}" });
 
                      const unsigned phiParam_A_perp[5] ={0, 0, 3, 0, 1}; // A_perp polarization
 
-					results.add({ real(this->phi(16.0, phiParam_A_perp)), "Re{phi_A_long(q2 = 16.0)}" });
-					results.add({ imag(this->phi(16.0, phiParam_A_perp)), "Im{phi_A_long(q2 = 16.0)}" });
+					results.add({ real(this->phi(q2, phiParam_A_perp)), "Re{phi_A_long(q2 = 16.0)}" });
+					results.add({ imag(this->phi(q2, phiParam_A_perp)), "Im{phi_A_long(q2 = 16.0)}" });
+
+                    //===================Testcase for nonlocal FF======================//
+
+                    results.add({ real(this->H_V_long(q2)), "Re{H_V_long(q2 = 16.0)}" });
+                    results.add({ imag(this->H_V_long(q2)), "Im{H_V_long(q2 = 16.0)}" });
+
+                    results.add({ real(this->H_V_perp(q2)), "Re{H_V_perp(q2 = 16.0)}" });
+                    results.add({ imag(this->H_V_perp(q2)), "Im{H_V_perp(q2 = 16.0)}" });
+
+                    results.add({ real(this->H_A_long(q2)), "Re{H_A_long(q2 = 16.0)}" });
+                    results.add({ imag(this->H_A_long(q2)), "Im{H_A_long(q2 = 16.0)}" });
+
+                    results.add({ real(this->H_A_perp(q2)), "Re{H_A_perp(q2 = 16.0)}" });
+                    results.add({ imag(this->H_A_perp(q2)), "Im{H_A_perp(q2 = 16.0)}" });
+
+                    //============Testcase for residue of nonlocal FF============//
+
+                    results.add({ real(this->H_V_long_residue_jpsi()), "Re{H_V_long_residue_jpsi()}" });
+                    results.add({ imag(this->H_V_long_residue_jpsi()), "Im{H_V_long_residue_jpsi()}" });
+
+                    results.add({ real(this->H_V_perp_residue_jpsi()), "Re{H_V_perp_residue_jpsi()}" });
+                    results.add({ imag(this->H_V_perp_residue_jpsi()), "Im{H_V_perp_residue_jpsi()}" });
+
+                    results.add({ real(this->H_A_long_residue_jpsi()), "Re{H_A_long_residue_jpsi()}" });
+                    results.add({ imag(this->H_A_long_residue_jpsi()), "Im{H_A_long_residue_jpsi()}" });
+
+                    results.add({ real(this->H_A_perp_residue_jpsi()), "Re{H_A_perp_residue_jpsi()}" });
+                    results.add({ imag(this->H_A_perp_residue_jpsi()), "Im{H_A_perp_residue_jpsi()}" });
 
 
                     return results;

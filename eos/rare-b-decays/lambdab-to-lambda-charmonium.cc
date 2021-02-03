@@ -20,7 +20,6 @@
 #include <eos/form-factors/mesonic.hh>
 #include <eos/rare-b-decays/lambdab-to-lambda-charmonium.hh>
 #include <eos/rare-b-decays/nonlocal-formfactors.hh>
-//#include <eos/rare-b-decays/nonlocal-formfactors-onehalfplus-to-onehalfplus.cc>
 #include <eos/utils/kinematic.hh>
 #include <eos/utils/model.hh>
 #include <eos/utils/options-impl.hh>
@@ -66,6 +65,8 @@ namespace eos
 
         UsedParameter f_psi;
 
+        UsedParameter alpha;
+
         std::function<complex<double> ()> residue_H_V_perp;
         std::function<complex<double> ()> residue_H_V_long;
         std::function<complex<double> ()> residue_H_A_perp;
@@ -81,10 +82,11 @@ namespace eos
             m_Lam(p["mass::Lambda"], u),
             m_LamB(p["mass::Lambda_b"], u),
             opt_formfactor(o, "formfactor", { "GvDV2020", "GRvDV2021" }, "GvDV2020"),
-            //nonlocal_formfactor(NonlocalFormFactor<nc::PToV>::make("B->K^*::" + formfactor.value(), p, o)),
+            nonlocal_formfactor(NonlocalFormFactor<nc::OneHalfPlusToOneHalfPlus>::make("Lambda_b->Lambda::" + opt_formfactor.value(), p, o)),
             psi(o, "psi", { "J/psi", "psi(2S)" }, "J/psi"),
             m_psi(p["mass::" + psi.value()], u),
-            f_psi(p["decay-constant::" + psi.value()], u)
+            f_psi(p["decay-constant::" + psi.value()], u),
+            alpha(p["Lambda::alpha"], u)
 
         {
             if (! nonlocal_formfactor.get())
@@ -122,19 +124,13 @@ namespace eos
 
         Amplitudes amplitudes() const
         {
-            const complex<double> res_H_V_perp = this->residue_H_V_perp();
-            const complex<double> res_H_V_long = this->residue_H_V_long();
-            const complex<double> res_H_A_perp = this->residue_H_A_perp();
-            const complex<double> res_H_A_long = this->residue_H_A_long();
-
-            const double m_psi = this->m_psi();
-            const double f_psi = this->f_psi();
+           
             const double Q_c = 2.0/3.0;
 
-            complex<double> A_V_perp = res_H_V_perp / (Q_c* f_psi * m_psi);
-            complex<double> A_V_long = res_H_V_long / (Q_c* f_psi * m_psi);
-            complex<double> A_A_perp = res_H_A_perp / (Q_c* f_psi * m_psi);
-            complex<double> A_A_long = res_H_A_long / (Q_c* f_psi * m_psi);
+            complex<double> A_V_perp = residue_H_V_perp() / (Q_c* f_psi * m_psi);
+            complex<double> A_V_long = residue_H_V_long() / (Q_c* f_psi * m_psi);
+            complex<double> A_A_perp = residue_H_A_perp() / (Q_c* f_psi * m_psi);
+            complex<double> A_A_long = residue_H_A_long() / (Q_c* f_psi * m_psi);
 
             return { A_V_perp, A_V_long, A_A_perp, A_A_long };
         }
@@ -160,86 +156,61 @@ namespace eos
             const double tau_LamB = this->tau_LamB();
             const double m_psi = this->m_psi();
             const auto lambda = eos::lambda(pow(m_LamB, 2), pow(m_Lam, 2), pow(m_psi, 2));
-
+            /*
             const auto prefactor = pow(g_fermi * abs(model->ckm_cb() * (model->ckm_cs())), 2)
                     * 6 * tau_LamB / (32 * M_PI) * m_LamB * sqrt(lambda);
-            
-            const auto amps_res = s_minus(m_psi)* (pow(m_LamB + m_Lam, 2.0)/(2 * pow(m_psi, 2.0)) * norm(amps.A_V_long) + norm(amps.A_V_perp))
-                                + s_plus(m_psi) *  (pow(m_LamB - m_Lam, 2.0)/(2 * pow(m_psi, 2.0)) * norm(amps.A_A_long) + norm(amps.A_A_perp));
+            */
+            const auto prefactor = 6 * tau_LamB / (32 * M_PI) * m_LamB * sqrt(lambda);
+
+            const auto amps_res = s_minus(m_psi)* (pow(m_LamB + m_Lam, 2.0)/(2.0 * pow(m_psi, 2.0)) * norm(amps.A_V_long) + norm(amps.A_V_perp))
+                                + s_plus(m_psi) *  (pow(m_LamB - m_Lam, 2.0)/(2.0 * pow(m_psi, 2.0)) * norm(amps.A_A_long) + norm(amps.A_A_perp));
             return prefactor * amps_res;
         }
 
-        double res_norm() const
+        double residue_norm() const
         {
-            const complex<double> res_H_V_perp = this->residue_H_V_perp();
-            const complex<double> res_H_V_long = this->residue_H_V_long();
-            const complex<double> res_H_A_perp = this->residue_H_A_perp();
-            const complex<double> res_H_A_long = this->residue_H_A_long();
-
-            return norm(res_H_V_perp) + norm(res_H_V_long) + norm(res_H_A_perp) +norm(res_H_A_long);
+        
+            return norm(residue_H_V_perp()) + norm(residue_H_V_long()) + norm(residue_H_A_perp()) +norm(residue_H_A_long());
         }
         double K1ss() const
         {
-            const complex<double> res_H_V_perp = this->residue_H_V_perp();
-            const complex<double> res_H_V_long = this->residue_H_V_long();
-            const complex<double> res_H_A_perp = this->residue_H_A_perp();
-            const complex<double> res_H_A_long = this->residue_H_A_long();
 
-            return 1.0/res_norm() * (norm(res_H_V_perp) + norm(res_H_A_perp) + 2.0 * norm(res_H_V_long) + 2.0 * norm(res_H_A_long));       
+            return 1.0/residue_norm() * (norm(residue_H_V_perp()) + norm(residue_H_A_perp()) + 2.0 * norm(residue_H_V_long()) + 2.0 * norm(residue_H_A_long()));       
         }
         
         double K1cc() const
         {
-            const complex<double> res_H_V_perp = this->residue_H_V_perp();
-            const complex<double> res_H_V_long = this->residue_H_V_long();
-            const complex<double> res_H_A_perp = this->residue_H_A_perp();
-            const complex<double> res_H_A_long = this->residue_H_A_long();
 
-            return 1.0/res_norm() * (norm(res_H_V_perp) + norm(res_H_A_perp));
+            return 1.0/residue_norm() * (norm(residue_H_V_perp()) + norm(residue_H_A_perp()));
         }
 
         double K2ss() const
         {
-            const complex<double> res_H_V_perp = this->residue_H_V_perp();
-            const complex<double> res_H_V_long = this->residue_H_V_long();
-            const complex<double> res_H_A_perp = this->residue_H_A_perp();
-            const complex<double> res_H_A_long = this->residue_H_A_long();
             const double alpha = 0.20; 
 
-            return alpha/res_norm() * real(res_H_V_perp * conj(res_H_A_perp) + 2.0 * res_H_V_long * conj(res_H_A_long) );
+            return alpha/residue_norm() * real(residue_H_V_perp() * conj(residue_H_A_perp()) + 2.0 * residue_H_V_long() * conj(residue_H_A_long()) );
         }
 
         double K2cc() const
         {
-            const complex<double> res_H_V_perp = this->residue_H_V_perp();
-            const complex<double> res_H_V_long = this->residue_H_V_long();
-            const complex<double> res_H_A_perp = this->residue_H_A_perp();
-            const complex<double> res_H_A_long = this->residue_H_A_long();
+            
             const double alpha = 0.20;
 
-            return 2.0 * alpha/res_norm() * real(res_H_V_perp * conj(res_H_A_perp));
+            return 2.0 * alpha/residue_norm() * real(residue_H_V_perp() * conj(residue_H_A_perp()));
         }
 
         double K3sc() const
         {
-            const complex<double> res_H_V_perp = this->residue_H_V_perp();
-            const complex<double> res_H_V_long = this->residue_H_V_long();
-            const complex<double> res_H_A_perp = this->residue_H_A_perp();
-            const complex<double> res_H_A_long = this->residue_H_A_long();
             const double alpha = 0.20;
 
-            return 2.0 *alpha/(pow(2.0, 0.5) * res_norm()) * imag(res_H_V_perp * conj(res_H_V_long));
+            return 2.0 *alpha/(pow(2.0, 0.5) * residue_norm()) * imag(residue_H_V_perp() * conj(residue_H_V_long()));
         }
 
         double K4sc() const
         {
-            const complex<double> res_H_V_perp = this->residue_H_V_perp();
-            const complex<double> res_H_V_long = this->residue_H_V_long();
-            const complex<double> res_H_A_perp = this->residue_H_A_perp();
-            const complex<double> res_H_A_long = this->residue_H_A_long();
             const double alpha = 0.20;
 
-            return 2.0 *alpha/(pow(2.0, 0.5) * res_norm()) * real(res_H_V_perp * conj(res_H_A_long) - res_H_A_perp * conj(res_H_V_long) );
+            return 2.0 *alpha/(pow(2.0, 0.5) * residue_norm()) * real(residue_H_V_perp() * conj(residue_H_A_long()) - residue_H_A_perp() * conj(residue_H_V_long()));
         }
     };
 

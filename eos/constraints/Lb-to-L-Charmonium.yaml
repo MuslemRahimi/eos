@@ -1,0 +1,19 @@
+# vim: set fdm=marker :
+
+########
+# HFLAV #
+########
+#
+# 2016
+#
+# {{{
+Lambda_b->LambdaJpsi::branching_ratio@HFLAV-2016:
+    type: Gaussian
+    observable: Lambda_b->Lambdacharmonium::branching_ratio
+    kinematics: {}
+    options: {psi: J/psi}
+    mean: 3.7e-4
+    sigma-stat: {hi: 0., lo: 0.}
+    sigma-sys: {hi: 1.e-4, lo: 1.e-4}
+    dof: 1
+# }}}

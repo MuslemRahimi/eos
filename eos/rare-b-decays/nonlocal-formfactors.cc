@@ -120,7 +120,7 @@ namespace eos
 
             const double alphaXY = std::abs(std::arg(zXY));
 
-            const double denom = 2*pow(alphaXY, 2) + cos(2*alphaXY) - 1;
+            const double denom = 2.0*pow(alphaXY, 2) + cos(2.0*alphaXY) - 1;
 
             const complex<double> P0z = 1.0/sqrt(2*alphaXY);
             const complex<double> P1z = (z - sin(alphaXY)/alphaXY)*sqrt(alphaXY/denom);

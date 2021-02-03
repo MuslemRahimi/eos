@@ -20,6 +20,7 @@
 #include <eos/observable-impl.hh>
 #include <eos/rare-b-decays/decays.hh>
 #include <eos/rare-b-decays/b-to-kstar-charmonium.hh>
+#include <eos/rare-b-decays/lambdab-to-lambda-charmonium.hh>
 #include <eos/rare-b-decays/b-to-kstar-gamma.hh>
 #include <eos/rare-b-decays/b-to-kstar-ll.hh>
 #include <eos/rare-b-decays/exclusive-b-to-dilepton.hh>
@@ -59,8 +60,32 @@ namespace eos
 
         return ObservableGroup(imp);
     }
+
     // }}}
 
+
+    // Lambda_b -> Lambda charmonium
+    // {{{
+    /*
+    ObservableGroup
+    make_Lb_to_L_psi_group()
+    {
+        auto imp = new Implementation<ObservableGroup>(
+            R"(Observables in $\Lambda_b \to \Lambda \psi$ decays)",
+            R"(The option "psi" selects charmonium state.)",
+            {
+                make_observable("Lambda_b->Lambdacharmonium::branching_ratio", R"(\mathcal{B}(\Lambda_b \to \Lambda \psi))",
+                        &LambdabToLambdaCharmonium::branching_ratio),
+            }
+        );
+
+        return ObservableGroup(imp);
+    }
+
+    // }}}
+    */
+
+    
 #if 0
     // B_q -> P l^+l^-
     // {{{
@@ -1235,6 +1260,9 @@ namespace eos
 
                 // Lambda_b -> Lambda l^+ l^-
                 make_lambdab_to_lambda_ll_group(),
+
+                // Lambda_b -> Lambda psi
+                //make_Lb_to_L_psi_group(),
 
                 // B -> X_s {gamma, l^+ l^-}
                 make_b_to_xs_group(),
