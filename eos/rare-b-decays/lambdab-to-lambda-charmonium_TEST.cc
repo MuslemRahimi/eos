@@ -1,6 +1,7 @@
 #include <test/test.hh>
 #include <eos/rare-b-decays/lambdab-to-lambda-charmonium.hh>
 #include <eos/rare-b-decays/nonlocal-formfactors.hh>
+#include <eos/utils/complex.hh>
 
 using namespace test;
 using namespace eos;
@@ -19,10 +20,11 @@ class LambdabToLambdaCharmoniumBRvD2021 :
             static const double eps = 1e-5;
 
             Parameters p = Parameters::Defaults();
-
             p["mass::J/psi"]                             = 3.0969;
             p["mass::psi(2S)"]                           = 3.6860;
-            p["mass::D^0"]                               = 1.86723;
+            p["mass::Lambda"]                            = 1.115683;
+            p["mass::Lambda_b"]                          = 5.61960;
+            p["mass::D^0"]                               = 1.86483;
             p["b->sccbar::t_0"]                          = 9.0;
             p["b->sccbar::t_s"]                          = -17.4724;
             p["b->sccbar::chiOPE@GvDV2020"]              = 1.81e-4;
@@ -60,20 +62,18 @@ class LambdabToLambdaCharmoniumBRvD2021 :
             Options oo;
             oo.set("model",          "WilsonScan");
             oo.set("q",              "d");
-            oo.set("formfactor",     "GvDV2020");
+            oo.set("formfactor",     "BRvD2021");
             oo.set("psi",            "J/psi");
 
             LambdabToLambdaCharmonium c(p, oo);
 
-            TEST_CHECK_RELATIVE_ERROR(c.branching_ratio(),  0.1687825877, eps);
-            /*
-            TEST_CHECK_RELATIVE_ERROR(c.S_1c_LHCb(),  0.1687825877, eps);
-            TEST_CHECK_RELATIVE_ERROR(c.S_1s_LHCb(),  0.6234130592, eps);
-            TEST_CHECK_RELATIVE_ERROR(c.S_3_LHCb(),  -0.2413178232, eps);
-            TEST_CHECK_RELATIVE_ERROR(c.S_4_LHCb(),   0.2354340047, eps);
-            TEST_CHECK_RELATIVE_ERROR(c.S_8_LHCb(),  -0.0062319175, eps);
-            TEST_CHECK_RELATIVE_ERROR(c.S_9_LHCb(),   0.0091313636, eps);
-            */
+            TEST_CHECK_RELATIVE_ERROR(c.branching_ratio(),  8.03358e-21, eps);
+            TEST_CHECK_RELATIVE_ERROR(c.K1ss(),  1.14476, eps);
+            TEST_CHECK_RELATIVE_ERROR(c.K1cc(),  0.855237, eps);
+            TEST_CHECK_RELATIVE_ERROR(c.K2ss(),  0.339026, eps);
+            TEST_CHECK_RELATIVE_ERROR(c.K2cc(),  0.547073, eps);
+            TEST_CHECK_RELATIVE_ERROR(c.K3sc(),  8.73313e-18, eps); //Mathematica gives zero but c++ does not accept it
+            TEST_CHECK_RELATIVE_ERROR(c.K4sc(),  0.110098, eps);
 
         }
 } lambdab_to_lambda_charmonium_BRvD2021_test;

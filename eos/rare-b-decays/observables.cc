@@ -66,7 +66,7 @@ namespace eos
 
     // Lambda_b -> Lambda charmonium
     // {{{
-    /*
+    
     ObservableGroup
     make_Lb_to_L_psi_group()
     {
@@ -83,7 +83,7 @@ namespace eos
     }
 
     // }}}
-    */
+    
 
     
 #if 0
@@ -1262,7 +1262,7 @@ namespace eos
                 make_lambdab_to_lambda_ll_group(),
 
                 // Lambda_b -> Lambda psi
-                //make_Lb_to_L_psi_group(),
+                make_Lb_to_L_psi_group(),
 
                 // B -> X_s {gamma, l^+ l^-}
                 make_b_to_xs_group(),

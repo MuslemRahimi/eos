@@ -81,7 +81,7 @@ namespace eos
             tau_LamB(p["life_time::Lambda_b"], u),
             m_Lam(p["mass::Lambda"], u),
             m_LamB(p["mass::Lambda_b"], u),
-            opt_formfactor(o, "formfactor", { "GvDV2020", "GRvDV2021" }, "GvDV2020"),
+            opt_formfactor(o, "formfactor", { "BRvD2021", "GRvDV2021" }, "BRvD2021"),
             nonlocal_formfactor(NonlocalFormFactor<nc::OneHalfPlusToOneHalfPlus>::make("Lambda_b->Lambda::" + opt_formfactor.value(), p, o)),
             psi(o, "psi", { "J/psi", "psi(2S)" }, "J/psi"),
             m_psi(p["mass::" + psi.value()], u),
@@ -126,13 +126,15 @@ namespace eos
         {
            
             const double Q_c = 2.0/3.0;
+            const double m_psi = this->m_psi();
+            const double f_psi = this->f_psi();
 
-            complex<double> A_V_perp = residue_H_V_perp() / (Q_c* f_psi * m_psi);
             complex<double> A_V_long = residue_H_V_long() / (Q_c* f_psi * m_psi);
-            complex<double> A_A_perp = residue_H_A_perp() / (Q_c* f_psi * m_psi);
+            complex<double> A_V_perp = residue_H_V_perp() / (Q_c* f_psi * m_psi);
             complex<double> A_A_long = residue_H_A_long() / (Q_c* f_psi * m_psi);
+            complex<double> A_A_perp = residue_H_A_perp() / (Q_c* f_psi * m_psi);
 
-            return { A_V_perp, A_V_long, A_A_perp, A_A_long };
+            return { A_V_perp, A_V_long, A_A_perp, A_A_long, };
         }
         
         double s_minus(const double & q) const
@@ -155,15 +157,16 @@ namespace eos
             const double m_Lam = this->m_Lam(); 
             const double tau_LamB = this->tau_LamB();
             const double m_psi = this->m_psi();
+            const double f_psi = this->f_psi();
             const auto lambda = eos::lambda(pow(m_LamB, 2), pow(m_Lam, 2), pow(m_psi, 2));
-            /*
+           
+
             const auto prefactor = pow(g_fermi * abs(model->ckm_cb() * (model->ckm_cs())), 2)
                     * 6 * tau_LamB / (32 * M_PI) * m_LamB * sqrt(lambda);
-            */
-            const auto prefactor = 6 * tau_LamB / (32 * M_PI) * m_LamB * sqrt(lambda);
 
             const auto amps_res = s_minus(m_psi)* (pow(m_LamB + m_Lam, 2.0)/(2.0 * pow(m_psi, 2.0)) * norm(amps.A_V_long) + norm(amps.A_V_perp))
                                 + s_plus(m_psi) *  (pow(m_LamB - m_Lam, 2.0)/(2.0 * pow(m_psi, 2.0)) * norm(amps.A_A_long) + norm(amps.A_A_perp));
+            
             return prefactor * amps_res;
         }
 
@@ -186,32 +189,33 @@ namespace eos
 
         double K2ss() const
         {
-            const double alpha = 0.20; 
+            const double alpha = this->alpha(); 
 
-            return alpha/residue_norm() * real(residue_H_V_perp() * conj(residue_H_A_perp()) + 2.0 * residue_H_V_long() * conj(residue_H_A_long()) );
+            return alpha/residue_norm() * real( residue_H_V_perp() * conj( residue_H_A_perp() ) + 2.0 * residue_H_V_long() * conj( residue_H_A_long() ) );
         }
 
         double K2cc() const
-        {
-            
-            const double alpha = 0.20;
+        {   
+            const double alpha = this->alpha(); 
 
-            return 2.0 * alpha/residue_norm() * real(residue_H_V_perp() * conj(residue_H_A_perp()));
+            return 2.0 * alpha/residue_norm() * real( residue_H_V_perp() * conj( residue_H_A_perp() ) );
         }
 
-        double K3sc() const
-        {
-            const double alpha = 0.20;
 
-            return 2.0 *alpha/(pow(2.0, 0.5) * residue_norm()) * imag(residue_H_V_perp() * conj(residue_H_V_long()));
+        double K3sc() const
+        {   
+            const double alpha = this->alpha(); 
+
+            return 2.0 *alpha/(pow(2.0, 0.5) * residue_norm()) * imag( residue_H_V_perp() * conj(residue_H_V_long()) - residue_H_A_perp() * conj(residue_H_A_long()));
         }
 
         double K4sc() const
         {
-            const double alpha = 0.20;
+            const double alpha = this->alpha();
 
             return 2.0 *alpha/(pow(2.0, 0.5) * residue_norm()) * real(residue_H_V_perp() * conj(residue_H_A_long()) - residue_H_A_perp() * conj(residue_H_V_long()));
         }
+
     };
 
     LambdabToLambdaCharmonium::LambdabToLambdaCharmonium(const Parameters & p, const Options & o) :
@@ -234,4 +238,35 @@ namespace eos
         return _imp->K1ss();
     }
 
+    double
+    LambdabToLambdaCharmonium::K1cc() const
+    {
+        return _imp->K1cc();
+    }
+
+    double
+    LambdabToLambdaCharmonium::K2ss() const
+    {
+        return _imp->K2ss();
+    }
+
+    double
+    LambdabToLambdaCharmonium::K2cc() const
+    {
+        return _imp->K2cc();
+    }
+
+    double
+    LambdabToLambdaCharmonium::K3sc() const
+    {
+        return _imp->K3sc();
+    }
+
+    double
+    LambdabToLambdaCharmonium::K4sc() const
+    {
+        return _imp->K4sc();
+    }
+
+   
 }

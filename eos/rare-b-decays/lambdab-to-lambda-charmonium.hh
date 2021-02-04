@@ -54,6 +54,7 @@ namespace eos
             double K1ss() const;
             double K1cc() const;
             double K2ss() const;
+            double K2cc() const;
             double K3sc() const;
             double K4sc() const;
 
