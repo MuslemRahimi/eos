@@ -41,7 +41,7 @@ matplotlib.rcParams['ytick.direction'] = 'out'
 
 matplotlib.rcParams['text.usetex'] = True
 
-matplotlib.rcParams['pgf.preamble'] = r'''\usepackage[hidelinks]{hyperref}
+matplotlib.rcParams['pgf.preamble'] = r'''
 \usepackage{amsmath}
 \usepackage{xcolor}'''
 
