@@ -1,7 +1,7 @@
 /* vim: set sw=4 sts=4 et tw=150 foldmethod=marker : */
 
 /*
- * Copyright (c) 2019 Danny van Dyk
+ * Copyright (c) 2021 Muslem Rahimi
  *
  * This file is part of the EOS project. EOS is free software;
  * you can redistribute it and/or modify it under the terms of the GNU General
@@ -66,7 +66,7 @@ namespace eos
 
     // Lambda_b -> Lambda charmonium
     // {{{
-    
+
     ObservableGroup
     make_Lb_to_L_psi_group()
     {
@@ -74,8 +74,48 @@ namespace eos
             R"(Observables in $\Lambda_b \to \Lambda \psi$ decays)",
             R"(The option "psi" selects charmonium state.)",
             {
+                //===============Angular-Observable===================//
                 make_observable("Lambda_b->Lambdacharmonium::branching_ratio", R"(\mathcal{B}(\Lambda_b \to \Lambda \psi))",
                         &LambdabToLambdaCharmonium::branching_ratio),
+
+                make_observable("Lambda_b->Lambdacharmonium::K1ss", R"(K_{1ss}(\Lambda_b \to \Lambda \psi))",
+                        &LambdabToLambdaCharmonium::K1ss),
+
+                make_observable("Lambda_b->Lambdacharmonium::K1cc", R"(K_{1cc}(\Lambda_b \to \Lambda \psi))",
+                        &LambdabToLambdaCharmonium::K1cc),
+
+                make_observable("Lambda_b->Lambdacharmonium::K2ss", R"(K_{2ss}(\Lambda_b \to \Lambda \psi))",
+                        &LambdabToLambdaCharmonium::K2ss),
+
+                make_observable("Lambda_b->Lambdacharmonium::K2cc", R"(K_{2ss}(\Lambda_b \to \Lambda \psi))",
+                        &LambdabToLambdaCharmonium::K2cc),
+
+                make_observable("Lambda_b->Lambdacharmonium::K3sc", R"(K_{3sc}(\Lambda_b \to \Lambda \psi))",
+                        &LambdabToLambdaCharmonium::K3sc),
+
+                make_observable("Lambda_b->Lambdacharmonium::K4sc", R"(K_{4sc}(\Lambda_b \to \Lambda \psi))",
+                        &LambdabToLambdaCharmonium::K4sc),
+
+                //===============Parameters===================//
+                make_observable("Lambda_b->Lambdacharmonium::abs_aplus", R"(|a_{+}|)",
+                        &LambdabToLambdaCharmonium::abs_aplus),
+                make_observable("Lambda_b->Lambdacharmonium::abs_aminus", R"(|a_{-}|)",
+                        &LambdabToLambdaCharmonium::abs_aminus),
+                make_observable("Lambda_b->Lambdacharmonium::abs_bplus", R"(|b_{+}|)",
+                        &LambdabToLambdaCharmonium::abs_bplus),
+                make_observable("Lambda_b->Lambdacharmonium::abs_bminus", R"(|b_{-}|)",
+                        &LambdabToLambdaCharmonium::abs_bminus),
+
+                make_observable("Lambda_b->Lambdacharmonium::arg_aplus", R"(\text{arg}(a_{+})|)",
+                        &LambdabToLambdaCharmonium::arg_aplus),
+                make_observable("Lambda_b->Lambdacharmonium::arg_aminus", R"(\text{arg}(a_{-}))",
+                        &LambdabToLambdaCharmonium::arg_aminus),
+                make_observable("Lambda_b->Lambdacharmonium::arg_bplus", R"(\text{arg}(b_{+}))",
+                        &LambdabToLambdaCharmonium::arg_bplus),
+                make_observable("Lambda_b->Lambdacharmonium::arg_bminus", R"(\text{arg}(b_{-}))",
+                        &LambdabToLambdaCharmonium::arg_bminus),
+                make_observable("Lambda_b->Lambdacharmonium::alpha_b", R"(\alpha_{b})",
+                        &LambdabToLambdaCharmonium::alpha_b),
             }
         );
 
@@ -83,9 +123,9 @@ namespace eos
     }
 
     // }}}
-    
 
-    
+
+
 #if 0
     // B_q -> P l^+l^-
     // {{{

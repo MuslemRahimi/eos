@@ -17,3 +17,161 @@ Lambda_b->LambdaJpsi::branching_ratio@HFLAV-2016:
     sigma-sys: {hi: 1.e-4, lo: 1.e-4}
     dof: 1
 # }}}
+
+########
+# LHCb #
+########
+#
+# 2020
+#
+# {{{
+Lambda_b->LambdaJpsi::K1ss@LHCb-2020:
+    type: Gaussian
+    observable: Lambda_b->Lambdacharmonium::K1ss
+    kinematics: {}
+    options: {psi: J/psi}
+    mean: 0.377
+    sigma-stat: {hi: 0., lo: 0.}
+    sigma-sys: {hi: 0.002, lo: 0.002}
+    dof: 1
+
+Lambda_b->LambdaJpsi::K1cc@LHCb-2020:
+    type: Gaussian
+    observable: Lambda_b->Lambdacharmonium::K1cc
+    kinematics: {}
+    options: {psi: J/psi}
+    mean: 0.246
+    sigma-stat: {hi: 0., lo: 0.}
+    sigma-sys: {hi: 0.004, lo: 0.004}
+    dof: 1
+
+Lambda_b->LambdaJpsi::K2ss@LHCb-2020:
+    type: Gaussian
+    observable: Lambda_b->Lambdacharmonium::K2ss
+    kinematics: {}
+    options: {psi: J/psi}
+    mean: -0.273
+    sigma-stat: {hi: 0., lo: 0.}
+    sigma-sys: {hi: 0.006, lo: 0.006}
+    dof: 1
+
+Lambda_b->LambdaJpsi::K2cc@LHCb-2020:
+    type: Gaussian
+    observable: Lambda_b->Lambdacharmonium::K2cc
+    kinematics: {}
+    options: {psi: J/psi}
+    mean: -0.177
+    sigma-stat: {hi: 0., lo: 0.}
+    sigma-sys: {hi: 0.009, lo: 0.009}
+    dof: 1
+
+Lambda_b->LambdaJpsi::K3sc@LHCb-2020:
+    type: Gaussian
+    observable: Lambda_b->Lambdacharmonium::K3sc
+    kinematics: {}
+    options: {psi: J/psi}
+    mean: -0.021
+    sigma-stat: {hi: 0., lo: 0.}
+    sigma-sys: {hi: 0.010, lo: 0.010}
+    dof: 1
+
+Lambda_b->LambdaJpsi::K4sc@LHCb-2020:
+    type: Gaussian
+    observable: Lambda_b->Lambdacharmonium::K4sc
+    kinematics: {}
+    options: {psi: J/psi}
+    mean: 0.026
+    sigma-stat: {hi: 0., lo: 0.}
+    sigma-sys: {hi: 0.010, lo: 0.010}
+    dof: 1
+
+Lambda_b->LambdaJpsi::abs_aplus@LHCb-2020:
+    type: Gaussian
+    observable: Lambda_b->Lambdacharmonium::abs_aplus
+    kinematics: {}
+    options: {psi: J/psi}
+    mean: 0.129
+    sigma-stat: {hi: 0., lo: 0.}
+    sigma-sys: {hi: 0.01, lo: 0.01}
+    dof: 1
+
+Lambda_b->LambdaJpsi::abs_aminus@LHCb-2020:
+    type: Gaussian
+    observable: Lambda_b->Lambdacharmonium::abs_aminus
+    kinematics: {}
+    options: {psi: J/psi}
+    mean: 1.021
+    sigma-stat: {hi: 0., lo: 0.}
+    sigma-sys: {hi: 0.01, lo: 0.01}
+    dof: 1
+
+Lambda_b->LambdaJpsi::abs_bplus@LHCb-2020:
+    type: Gaussian
+    observable: Lambda_b->Lambdacharmonium::abs_bplus
+    kinematics: {}
+    options: {psi: J/psi}
+    mean: 1.0
+    sigma-stat: {hi: 0., lo: 0.}
+    sigma-sys: {hi: 0.01, lo: 0.01}
+    dof: 1
+
+Lambda_b->LambdaJpsi::abs_bminus@LHCb-2020:
+    type: Gaussian
+    observable: Lambda_b->Lambdacharmonium::abs_bminus
+    kinematics: {}
+    options: {psi: J/psi}
+    mean: 0.145
+    sigma-stat: {hi: 0., lo: 0.}
+    sigma-sys: {hi: 0.01, lo: 0.01}
+    dof: 1
+
+Lambda_b->LambdaJpsi::arg_aplus@LHCb-2020:
+    type: Gaussian
+    observable: Lambda_b->Lambdacharmonium::arg_aplus
+    kinematics: {}
+    options: {psi: J/psi}
+    mean: -2.523
+    sigma-stat: {hi: 0., lo: 0.}
+    sigma-sys: {hi: 0.01, lo: 0.01}
+    dof: 1
+
+Lambda_b->LambdaJpsi::arg_aminus@LHCb-2020:
+    type: Gaussian
+    observable: Lambda_b->Lambdacharmonium::arg_aminus
+    kinematics: {}
+    options: {psi: J/psi}
+    mean: 1.122
+    sigma-stat: {hi: 0., lo: 0.}
+    sigma-sys: {hi: 0.01, lo: 0.01}
+    dof: 1
+
+Lambda_b->LambdaJpsi::arg_bplus@LHCb-2020:
+    type: Gaussian
+    observable: Lambda_b->Lambdacharmonium::arg_bplus
+    kinematics: {}
+    options: {psi: J/psi}
+    mean: 0.0
+    sigma-stat: {hi: 0., lo: 0.}
+    sigma-sys: {hi: 0.01, lo: 0.01}
+    dof: 1
+
+Lambda_b->LambdaJpsi::arg_bminus@LHCb-2020:
+    type: Gaussian
+    observable: Lambda_b->Lambdacharmonium::arg_bminus
+    kinematics: {}
+    options: {psi: J/psi}
+    mean: 1.788
+    sigma-stat: {hi: 0., lo: 0.}
+    sigma-sys: {hi: 0.01, lo: 0.01}
+    dof: 1
+
+Lambda_b->LambdaJpsi::alpha_b@LHCb-2020:
+    type: Gaussian
+    observable: Lambda_b->Lambdacharmonium::alpha_b
+    kinematics: {}
+    options: {psi: J/psi}
+    mean: -0.022
+    sigma-stat: {hi: 0., lo: 0.}
+    sigma-sys: {hi: 0.01, lo: 0.01}
+    dof: 1
+# }}}

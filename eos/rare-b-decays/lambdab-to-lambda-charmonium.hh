@@ -17,8 +17,8 @@
  * Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef EOS_GUARD_EOS_RARE_B_DECAYS_B_TO_KSTAR_CHARMONIUM_HH
-#define EOS_GUARD_EOS_RARE_B_DECAYS_B_TO_KSTAR_CHARMONIUM_HH 1
+#ifndef EOS_GUARD_EOS_RARE_B_DECAYS_LAMBDAB_TO_LAMBDA_CHARMONIUM_HH
+#define EOS_GUARD_EOS_RARE_B_DECAYS_LAMBDAB_TO_LAMBDA_CHARMONIUM_HH 1
 
 #include <eos/utils/complex.hh>
 #include <eos/utils/options.hh>
@@ -58,6 +58,17 @@ namespace eos
             double K3sc() const;
             double K4sc() const;
 
+            double alpha_b() const;
+
+            double abs_aplus() const;
+            double abs_aminus() const;
+            double abs_bplus() const;
+            double abs_bminus() const;
+
+            double arg_aplus() const;
+            double arg_aminus() const;
+            double arg_bplus() const;
+            double arg_bminus() const;
             ///@}
     };
 }

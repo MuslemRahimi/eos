@@ -1,7 +1,25 @@
+/* vim: set sw=4 sts=4 et foldmethod=syntax : */
+
+/*
+ * Copyright (c) 2021 Muslem Rahimi
+ *
+ * This file is part of the EOS project. EOS is free software;
+ * you can redistribute it and/or modify it under the terms of the GNU General
+ * Public License version 2, as published by the Free Software Foundation.
+ *
+ * EOS is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
 #include <test/test.hh>
 #include <eos/rare-b-decays/lambdab-to-lambda-charmonium.hh>
 #include <eos/rare-b-decays/nonlocal-formfactors.hh>
-#include <eos/utils/complex.hh>
 
 using namespace test;
 using namespace eos;
@@ -30,6 +48,8 @@ class LambdabToLambdaCharmoniumBRvD2021 :
             p["b->sccbar::chiOPE@GvDV2020"]              = 1.81e-4;
             p["life_time::Lambda_b"]                     = 1.471e-12;
             p["decay-constant::J/psi"]                   = 0.2773;
+            p["hbar"]                                    = 6.5821e-25;
+            p["Lambda::alpha"]                           = 0.750;
 
             p["Lambda_b->Lambdaccbar::Re{alpha_0^V_long}@BRvD2021"]  = 1.0;
             p["Lambda_b->Lambdaccbar::Im{alpha_0^V_long}@BRvD2021"]  = 1.0;
@@ -67,13 +87,29 @@ class LambdabToLambdaCharmoniumBRvD2021 :
 
             LambdabToLambdaCharmonium c(p, oo);
 
-            TEST_CHECK_RELATIVE_ERROR(c.branching_ratio(),  8.03358e-21, eps);
-            TEST_CHECK_RELATIVE_ERROR(c.K1ss(),  1.14476, eps);
-            TEST_CHECK_RELATIVE_ERROR(c.K1cc(),  0.855237, eps);
-            TEST_CHECK_RELATIVE_ERROR(c.K2ss(),  0.339026, eps);
-            TEST_CHECK_RELATIVE_ERROR(c.K2cc(),  0.547073, eps);
-            TEST_CHECK_RELATIVE_ERROR(c.K3sc(),  8.73313e-18, eps); //Mathematica gives zero but c++ does not accept it
-            TEST_CHECK_RELATIVE_ERROR(c.K4sc(),  0.110098, eps);
+            //===============Angular-Observable===================//
+
+            TEST_CHECK_NEARLY_EQUAL(c.branching_ratio(), 12205.19, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.K1ss(),  0.286191, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.K1cc(),  0.427619, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.K2ss(), -0.198029, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.K2cc(), -0.319552, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.K3sc(),       0.0, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.K4sc(),  0.0321548, eps);
+
+            //===============Parameters===================//
+
+            TEST_CHECK_NEARLY_EQUAL(c.abs_aplus(),  0.993456, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.abs_aminus(), 2.38675, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.abs_bplus(),  6.27805, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.abs_bminus(), 0.267461, eps);
+
+            TEST_CHECK_NEARLY_EQUAL(c.arg_aplus(),  0.785398, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.arg_aminus(), -2.35619, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.arg_bplus(),  -2.35619, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.arg_bminus(), 0.785398, eps);
+
+            TEST_CHECK_NEARLY_EQUAL(c.alpha_b(), 0.75013, eps);
 
         }
 } lambdab_to_lambda_charmonium_BRvD2021_test;
