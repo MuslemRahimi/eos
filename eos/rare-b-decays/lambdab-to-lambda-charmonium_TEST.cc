@@ -43,7 +43,7 @@ class LambdabToLambdaCharmoniumBRvD2021 :
             p["mass::Lambda"]                            = 1.115683;
             p["mass::Lambda_b"]                          = 5.61960;
             p["mass::D^0"]                               = 1.86483;
-            p["b->sccbar::t_0"]                          = 9.0;
+            p["b->sccbar::t_0"]                          = 10.0;
             p["b->sccbar::t_s"]                          = -17.4724;
             p["b->sccbar::chiOPE@GvDV2020"]              = 1.81e-4;
             p["life_time::Lambda_b"]                     = 1.471e-12;
@@ -80,8 +80,7 @@ class LambdabToLambdaCharmoniumBRvD2021 :
             p["Lambda_b->Lambdaccbar::Im{alpha_2^A_perp}@BRvD2021"]  = 12.0;
 
             Options oo;
-            oo.set("model",          "WilsonScan");
-            oo.set("q",              "d");
+            oo.set("model",          "SM");
             oo.set("formfactor",     "BRvD2021");
             oo.set("psi",            "J/psi");
 
@@ -89,27 +88,27 @@ class LambdabToLambdaCharmoniumBRvD2021 :
 
             //===============Angular-Observable===================//
 
-            TEST_CHECK_NEARLY_EQUAL(c.branching_ratio(), 12205.19, eps);
-            TEST_CHECK_NEARLY_EQUAL(c.K1ss(),  0.286191, eps);
-            TEST_CHECK_NEARLY_EQUAL(c.K1cc(),  0.427619, eps);
-            TEST_CHECK_NEARLY_EQUAL(c.K2ss(), -0.198029, eps);
-            TEST_CHECK_NEARLY_EQUAL(c.K2cc(), -0.319552, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.branching_ratio(), 16858.471949, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.K1ss(),  0.286214, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.K1cc(),  0.427572, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.K2ss(), -0.198159, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.K2cc(), -0.319556, eps);
             TEST_CHECK_NEARLY_EQUAL(c.K3sc(),       0.0, eps);
-            TEST_CHECK_NEARLY_EQUAL(c.K4sc(),  0.0321548, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.K4sc(), -0.0642176, eps);
 
             //===============Parameters===================//
 
-            TEST_CHECK_NEARLY_EQUAL(c.abs_aplus(),  0.993456, eps);
-            TEST_CHECK_NEARLY_EQUAL(c.abs_aminus(), 2.38675, eps);
-            TEST_CHECK_NEARLY_EQUAL(c.abs_bplus(),  6.27805, eps);
-            TEST_CHECK_NEARLY_EQUAL(c.abs_bminus(), 0.267461, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.abs_aplus(),  1.16454, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.abs_aminus(), 2.80841, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.abs_bplus(),  7.38048, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.abs_bminus(), 0.309115, eps);
 
             TEST_CHECK_NEARLY_EQUAL(c.arg_aplus(),  0.785398, eps);
             TEST_CHECK_NEARLY_EQUAL(c.arg_aminus(), -2.35619, eps);
             TEST_CHECK_NEARLY_EQUAL(c.arg_bplus(),  -2.35619, eps);
             TEST_CHECK_NEARLY_EQUAL(c.arg_bminus(), 0.785398, eps);
 
-            TEST_CHECK_NEARLY_EQUAL(c.alpha_b(), 0.75013, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.alpha_b(), 0.749799, eps);
 
         }
 } lambdab_to_lambda_charmonium_BRvD2021_test;

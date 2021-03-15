@@ -30,15 +30,6 @@
 namespace eos
 {
 
-    namespace nc
-    {
-        struct LambdabToLambda
-        {
-            constexpr static const char * label = "Lambda_b->Lambda";
-        };
-        constexpr const char * LambdabToLambda::label;
-    }
-
      namespace nc_p_to_p
     {
        template <typename Process_>
@@ -171,7 +162,7 @@ namespace eos
 
                     const double a = phiParam[0], b = phiParam[1], c = phiParam[2], d = phiParam[3], e= phiParam[4];
 
-                    const double Nlambda = 8*M_PI * pow((s_plus-s_0)/(3*chi),0.5) * m_LamB2 * pow(m_LamB + m_Lam, a) * pow(m_LamB - m_Lam, b); 
+                    const double Nlambda = 8 * M_PI * pow((s_plus-s_0)/(3*chi),0.5) * m_LamB2 * pow(m_LamB + m_Lam, a) * pow(m_LamB - m_Lam, b); 
                     const complex<double> phi1 = pow((s_0*pow(1.0 + z,2.0)*(s_0*pow(1.0 + z,2.0) - 2.0*pow(-1.0 + z,2.0)*(m_Lam2 + m_LamB2)) + (-1.0 + pow(beta(pow(m_LamB2 - m_Lam2,2.0)),2.0)*pow(-1.0 + z,4.0) - pow(z,4.0) + z*(4.0 - 8.0*s_0 + 8.0*m_Lam2 + 8.0*m_LamB2) + pow(z,3.0)*(4.0 - 8.0*s_0 + 8.0*m_Lam2 + 8.0*m_LamB2) - 2.0*pow(z,2.0)*(3.0 + 8.0*s_0 + 8.0*m_Lam2 + 8.0*m_LamB2))*(s_plus) + 16.0*pow(z,2.0)*pow(s_plus,2.0))/pow(-1.0 + z,4.0),0.25);
                     const complex<double> phi2 = pow((s_0*pow(1. + z,2.0) - 4.0*z*(s_plus))/pow(-1. + z,2.0), 0.5);
                     const complex<double> phi3 = pow((-(s_0*pow(1.0 + z, 2.0)) + (-1.0 + pow(beta(pow(m_LamB - m_Lam, 2.0)),2.0) * pow(-1.0 + z,2.0) + 6.0*z -pow(z,2.0))*(s_plus))/pow(-1.0 + z, 2.0),0.5);
@@ -250,7 +241,7 @@ namespace eos
 
                     const unsigned phiParam[5] = {0,0,3,1,0};
 
-                    return eos::nc_utils::PGvDV2020(z, zLbL, alpha_0, alpha_1, alpha_2) / phi(q2, phiParam) / blaschke_factor;
+                    return eos::nc_utils::PGvDV2020(z, zLbL, alpha_0, alpha_1, alpha_2) / phi(q2, phiParam)  / blaschke_factor;
                 }
 
                 virtual complex<double> H_A_long(const double & q2) const
@@ -487,4 +478,99 @@ namespace eos
 
         return i->second(p, o);
     }
+
+    template <typename Process_>
+    struct Implementation<NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>>
+    {
+        NameOption opt_formfactor;
+        NonlocalFormFactorPtr<nc::OneHalfPlusToOneHalfPlus> nc;
+
+        Implementation(const Parameters & p, const Options & o) :
+            opt_formfactor(o, "formfactor", qnp::Name("BRvD2021")),
+            nc(NonlocalFormFactor<nc::OneHalfPlusToOneHalfPlus>::make(QualifiedName(qnp::Prefix(Process_::label), opt_formfactor.value()), p, o))
+        {
+        }
+
+        ~Implementation() = default;
+    };
+
+    template <typename Process_>
+    NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>::NonlocalFormFactorObservable(const Parameters & p, const Options & o) :
+        PrivateImplementationPattern<NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>>(new Implementation<NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>>(p, o))
+    {
+    }
+
+    template <typename Process_>
+    NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>::~NonlocalFormFactorObservable() = default;
+
+
+    template <typename Process_>
+    double
+    NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>::re_H_V_perp(const double & q2) const
+    {
+        return real(this->_imp->nc->H_V_perp(q2));
+    }
+
+    template <typename Process_>
+    double
+    NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>::im_H_V_perp(const double & q2) const
+    {
+        return imag(this->_imp->nc->H_V_perp(q2));
+    }
+
+    template <typename Process_>
+    double
+    NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>::re_H_V_long(const double & q2) const
+    {
+        return real(this->_imp->nc->H_V_long(q2));
+    }
+
+    template <typename Process_>
+    double
+    NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>::im_H_V_long(const double & q2) const
+    {
+        return imag(this->_imp->nc->H_V_long(q2));
+    }
+
+
+     template <typename Process_>
+    double
+    NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>::re_H_A_perp(const double & q2) const
+    {
+        return real(this->_imp->nc->H_A_perp(q2));
+    }
+
+    template <typename Process_>
+    double
+    NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>::im_H_A_perp(const double & q2) const
+    {
+        return imag(this->_imp->nc->H_A_perp(q2));
+    }
+
+     template <typename Process_>
+    double
+    NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>::re_H_A_long(const double & q2) const
+    {
+        return real(this->_imp->nc->H_A_long(q2));
+    }
+
+    template <typename Process_>
+    double
+    NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>::im_H_A_long(const double & q2) const
+    {
+        return imag(this->_imp->nc->H_A_long(q2));
+    }
+
+
+    namespace nc
+    {
+        struct LambdabToLambda
+        {
+            constexpr static const char * label = "Lambda_b->Lambda";
+        };
+        constexpr const char * LambdabToLambda::label;
+    }
+
+    template class NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>;
+
 }

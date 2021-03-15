@@ -75,7 +75,7 @@ class NonlocalFormFactorBRvD2021Test :
                 p["Lambda_b->Lambdaccbar::Re{alpha_2^A_perp}@BRvD2021"]  = 12.0;
                 p["Lambda_b->Lambdaccbar::Im{alpha_2^A_perp}@BRvD2021"]  = 12.0;
 
-                Options o = { { "model", "WilsonScan" } };
+                Options o = { { "model", "SM" } };
 
                 auto nc = NonlocalFormFactor<nc::OneHalfPlusToOneHalfPlus>::make("Lambda_b->Lambda::BRvD2021", p, o);
 
@@ -90,7 +90,7 @@ class NonlocalFormFactorBRvD2021Test :
                 std::cout << "Diagnostics ended" << std::endl;
 
                 static const std::vector<std::pair<double, double>> reference
-                {   
+                {
 
                     std::make_pair( 0.752572, eps),         // Re{alpha_LbL}
                     std::make_pair( 0.0,  eps),             // Im{alpha_Lbl}

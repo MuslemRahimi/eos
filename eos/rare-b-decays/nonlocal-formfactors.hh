@@ -335,9 +335,11 @@ namespace eos
 
     template <>
     class NonlocalFormFactor<nc::OneHalfPlusToOneHalfPlus> :
-        public virtual ParameterUser
+        public ParameterUser
     {
         public:
+
+            virtual ~NonlocalFormFactor();
 
             virtual complex<double> H_V_perp(const double & q2) const = 0;
             virtual complex<double> H_V_long(const double & q2) const = 0;
@@ -364,6 +366,29 @@ namespace eos
             virtual Diagnostics diagnostics() const = 0;
 
     };
+
+    template <typename Process_>
+    class NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus> :
+        public ParameterUser,
+        public PrivateImplementationPattern<NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>>
+    {
+        public:
+            NonlocalFormFactorObservable(const Parameters &, const Options &);
+            ~NonlocalFormFactorObservable();
+
+            double re_H_V_perp(const double & q2) const;
+            double im_H_V_perp(const double & q2) const;
+
+            double re_H_V_long(const double & q2) const;
+            double im_H_V_long(const double & q2) const;
+
+            double re_H_A_perp(const double & q2) const;
+            double im_H_A_perp(const double & q2) const;
+
+            double re_H_A_long(const double & q2) const;
+            double im_H_A_long(const double & q2) const;
+    };
+    extern template class NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>;
 
 
     namespace nc_utils
