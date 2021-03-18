@@ -21,6 +21,7 @@
 #include <eos/utils/parameters.hh>
 #include <eos/utils/options-impl.hh>
 #include <cmath>
+#include <eos/utils/private_implementation_pattern-impl.hh>
 #include <eos/utils/options.hh>
 #include <eos/utils/stringify.hh>
 #include <eos/rare-b-decays/nonlocal-formfactors.hh>
@@ -30,9 +31,18 @@
 namespace eos
 {
 
-     namespace nc_p_to_p
+    namespace nc
     {
-       template <typename Process_>
+        struct LambdabToLambda
+        {
+            constexpr static const char * label = "Lambda_b->Lambda";
+        };
+        constexpr const char * LambdabToLambda::label;
+    }
+
+    namespace nc_onehalfplus_to_onehalfplus
+     {
+        template <typename Process_>
         class BRvD2021 :
             public NonlocalFormFactor<nc::OneHalfPlusToOneHalfPlus>
         {
@@ -162,14 +172,14 @@ namespace eos
 
                     const double a = phiParam[0], b = phiParam[1], c = phiParam[2], d = phiParam[3], e= phiParam[4];
 
-                    const double Nlambda = 8 * M_PI * pow((s_plus-s_0)/(3*chi),0.5) * m_LamB2 * pow(m_LamB + m_Lam, a) * pow(m_LamB - m_Lam, b); 
-                    const complex<double> phi1 = pow((s_0*pow(1.0 + z,2.0)*(s_0*pow(1.0 + z,2.0) - 2.0*pow(-1.0 + z,2.0)*(m_Lam2 + m_LamB2)) + (-1.0 + pow(beta(pow(m_LamB2 - m_Lam2,2.0)),2.0)*pow(-1.0 + z,4.0) - pow(z,4.0) + z*(4.0 - 8.0*s_0 + 8.0*m_Lam2 + 8.0*m_LamB2) + pow(z,3.0)*(4.0 - 8.0*s_0 + 8.0*m_Lam2 + 8.0*m_LamB2) - 2.0*pow(z,2.0)*(3.0 + 8.0*s_0 + 8.0*m_Lam2 + 8.0*m_LamB2))*(s_plus) + 16.0*pow(z,2.0)*pow(s_plus,2.0))/pow(-1.0 + z,4.0),0.25);
-                    const complex<double> phi2 = pow((s_0*pow(1. + z,2.0) - 4.0*z*(s_plus))/pow(-1. + z,2.0), 0.5);
+                    const double Nlambda = 8.0 * M_PI * pow((s_plus-s_0)/(3*chi),0.5) * m_LamB2 * pow(m_LamB + m_Lam, a) * pow(m_LamB - m_Lam, b);
+                    const complex<double> phi1 = pow((s_0*pow(1.0 + z,2.0)*(s_0*pow(1.0 + z, 2.0) - 2.0*pow(-1.0 + z,2.0)*(m_Lam2 + m_LamB2)) + (-1.0 + pow(beta(pow(m_LamB2 - m_Lam2,2.0)),2.0)*pow(-1.0 + z,4.0) - pow(z,4.0) + z*(4.0 - 8.0*s_0 + 8.0*m_Lam2 + 8.0*m_LamB2) + pow(z,3.0)*(4.0 - 8.0*s_0 + 8.0*m_Lam2 + 8.0*m_LamB2) - 2.0*pow(z,2.0)*(3.0 + 8.0*s_0 + 8.0*m_Lam2 + 8.0*m_LamB2))*(s_plus) + 16.0*pow(z,2.0)*pow(s_plus,2.0))/pow(-1.0 + z,4.0),0.25);
+                    const complex<double> phi2 = pow((s_0*pow(1.0 + z,2.0) - 4.0*z*(s_plus))/pow(-1. + z,2.0), 0.5);
                     const complex<double> phi3 = pow((-(s_0*pow(1.0 + z, 2.0)) + (-1.0 + pow(beta(pow(m_LamB - m_Lam, 2.0)),2.0) * pow(-1.0 + z,2.0) + 6.0*z -pow(z,2.0))*(s_plus))/pow(-1.0 + z, 2.0),0.5);
                     const complex<double> phi4 = pow((-(s_0*pow(1.0 + z, 2.0)) + (-1.0 + pow(beta(pow(m_LamB + m_Lam, 2.0)), 2.0) * pow(-1.0 + z,2.0) + 6.0*z -pow(z,2.0))*(s_plus))/pow(-1.0 + z, 2.0),0.5);
                     const complex<double> phi5 = pow((s_0*pow(1.0 + z, 2.0) + (1.0 - pow(beta(Q2),2.0)*pow(-1.0 + z, 2.0) - 6.0*z + pow(z,2.0))*(s_plus))/pow(-1.0 + z,2.0),-1.5);
 
-                    return Nlambda * pow(1.+z, 0.5) * pow(1.-z,-1.5) * phi1 * pow(phi2, -c) * pow(phi3, d) * pow(phi4, e) * phi5;
+                    return Nlambda * pow(1.0 + z, 0.5) * pow(1.-z,-1.5) * phi1 * pow(phi2, -c) * pow(phi3, d) * pow(phi4, e) * phi5;
                 }
 
 
@@ -214,8 +224,8 @@ namespace eos
                     const double s_p   = 4.0 * pow(m_D0, 2);
                     const auto z       = eos::nc_utils::z(q2,                       s_p, s_0);
                     const auto zLbL    = eos::nc_utils::z(pow(m_LamB + m_Lam, 2.0), s_p, s_0);
-                    const auto z_Jpsi  = eos::nc_utils::z(pow(m_Jpsi, 2),           s_p, s_0);
-                    const auto z_psi2S = eos::nc_utils::z(pow(m_psi2S, 2),          s_p, s_0);
+                    const auto z_Jpsi  = eos::nc_utils::z(pow(m_Jpsi, 2.0),           s_p, s_0);
+                    const auto z_psi2S = eos::nc_utils::z(pow(m_psi2S, 2.0),          s_p, s_0);
 
                     const complex<double> blaschke_factor = eos::nc_utils::blaschke_cc(z, z_Jpsi, z_psi2S);
 
@@ -234,8 +244,8 @@ namespace eos
                     const double s_p   = 4.0 * pow(m_D0, 2);
                     const auto z       = eos::nc_utils::z(q2,                       s_p, s_0);
                     const auto zLbL    = eos::nc_utils::z(pow(m_LamB + m_Lam, 2.0), s_p, s_0);
-                    const auto z_Jpsi  = eos::nc_utils::z(pow(m_Jpsi, 2),           s_p, s_0);
-                    const auto z_psi2S = eos::nc_utils::z(pow(m_psi2S, 2),          s_p, s_0);
+                    const auto z_Jpsi  = eos::nc_utils::z(pow(m_Jpsi, 2.0),           s_p, s_0);
+                    const auto z_psi2S = eos::nc_utils::z(pow(m_psi2S, 2.0),          s_p, s_0);
 
                     const complex<double> blaschke_factor = eos::nc_utils::blaschke_cc(z, z_Jpsi, z_psi2S);
 
@@ -251,11 +261,11 @@ namespace eos
                     const complex<double> alpha_2 = complex<double>(re_alpha_2_A_long, im_alpha_2_A_long);
 
                     const double s_0   = this->t_0();
-                    const double s_p   = 4.0 * pow(m_D0, 2);
+                    const double s_p   = 4.0 * pow(m_D0, 2.0);
                     const auto z       = eos::nc_utils::z(q2,                       s_p, s_0);
                     const auto zLbL    = eos::nc_utils::z(pow(m_LamB + m_Lam, 2.0), s_p, s_0);
-                    const auto z_Jpsi  = eos::nc_utils::z(pow(m_Jpsi, 2),           s_p, s_0);
-                    const auto z_psi2S = eos::nc_utils::z(pow(m_psi2S, 2),          s_p, s_0);
+                    const auto z_Jpsi  = eos::nc_utils::z(pow(m_Jpsi, 2.0),           s_p, s_0);
+                    const auto z_psi2S = eos::nc_utils::z(pow(m_psi2S, 2.0),          s_p, s_0);
 
                     const complex<double> blaschke_factor = eos::nc_utils::blaschke_cc(z, z_Jpsi, z_psi2S);
 
@@ -272,11 +282,11 @@ namespace eos
                     const complex<double> alpha_2 = complex<double>(re_alpha_2_A_perp, im_alpha_2_A_perp);
 
                     const double s_0   = this->t_0();
-                    const double s_p   = 4.0 * pow(m_D0, 2);
-                    const auto z       = eos::nc_utils::z(q2,                       s_p, s_0);
-                    const auto zLbL    = eos::nc_utils::z(pow(m_LamB + m_Lam, 2.0), s_p, s_0);
-                    const auto z_Jpsi  = eos::nc_utils::z(pow(m_Jpsi, 2),           s_p, s_0);
-                    const auto z_psi2S = eos::nc_utils::z(pow(m_psi2S, 2),          s_p, s_0);
+                    const double s_p   = 4.0 * pow(m_D0, 2.0);
+                    const auto z       = eos::nc_utils::z(q2,                         s_p, s_0);
+                    const auto zLbL    = eos::nc_utils::z(pow(m_LamB + m_Lam, 2.0),   s_p, s_0);
+                    const auto z_Jpsi  = eos::nc_utils::z(pow(m_Jpsi, 2.0),           s_p, s_0);
+                    const auto z_psi2S = eos::nc_utils::z(pow(m_psi2S, 2.0),          s_p, s_0);
 
                     const complex<double> blaschke_factor = eos::nc_utils::blaschke_cc(z, z_Jpsi, z_psi2S);
 
@@ -389,8 +399,8 @@ namespace eos
                     const double q2    = 16.0;
 
                     const auto zLbL    = eos::nc_utils::z(pow(m_LamB + m_Lam, 2.0), s_p, s_0);
-                    const auto z_Jpsi  = eos::nc_utils::z(pow(m_Jpsi, 2),           s_p, s_0);
-                    const auto z_psi2S = eos::nc_utils::z(pow(m_psi2S, 2),          s_p, s_0);
+                    const auto z_Jpsi  = eos::nc_utils::z(pow(m_Jpsi, 2.0),           s_p, s_0);
+                    const auto z_psi2S = eos::nc_utils::z(pow(m_psi2S, 2.0),          s_p, s_0);
                     const auto z       = eos::nc_utils::z(q2,                       s_p, s_0);
 
                     const complex<double> alpha_LbL = std::abs(std::arg(zLbL));
@@ -467,7 +477,7 @@ namespace eos
         std::map<KeyType, ValueType> entries
         {
             // parametrizations
-            std::make_pair("Lambda_b->Lambda::BRvD2021",     &nc_p_to_p::BRvD2021<nc::LambdabToLambda>::make),
+            std::make_pair("Lambda_b->Lambda::BRvD2021",     &nc_onehalfplus_to_onehalfplus::BRvD2021<nc::LambdabToLambda>::make),
         };
 
         auto i = entries.find(name);
@@ -561,16 +571,5 @@ namespace eos
         return imag(this->_imp->nc->H_A_long(q2));
     }
 
-
-    namespace nc
-    {
-        struct LambdabToLambda
-        {
-            constexpr static const char * label = "Lambda_b->Lambda";
-        };
-        constexpr const char * LambdabToLambda::label;
-    }
-
     template class NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>;
-
 }

@@ -121,11 +121,11 @@ class NonlocalFormFactorBRvD2021Test :
                     std::make_pair( -0.877161,  eps),        // Re{H_V_long(q2 = 16.0)}
                     std::make_pair(  4.50042,  eps),        // Im{H_V_long(q2 = 16.0)}
 
-                    std::make_pair( -0.437938,  eps),        // Re{H_V_long(q2 = 16.0)}
-                    std::make_pair(  2.26822,  eps),        // Im{H_V_long(q2 = 16.0)}
+                    std::make_pair( -0.437938,  eps),        // Re{H_A_long(q2 = 16.0)}
+                    std::make_pair(  2.26822,  eps),        // Im{H_A_long(q2 = 16.0)}
 
-                    std::make_pair( -0.651129,  eps),        // Re{H_V_long(q2 = 16.0)}
-                    std::make_pair( 3.3887,  eps),          // Im{H_V_long(q2 = 16.0)}
+                    std::make_pair( -0.651129,  eps),        // Re{H_A_long(q2 = 16.0)}
+                    std::make_pair( 3.3887,  eps),          // Im{H_A_long(q2 = 16.0)}
 
                     //============Testcase for residue of nonlocal FF================//
                     std::make_pair( -0.696651,  eps),           // Re{H_V_long_residue_jpsi()}

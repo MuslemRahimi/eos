@@ -62,7 +62,7 @@ Lambda_b->LambdaJpsi::K2cc@LHCb-2020:
     options: {psi: J/psi}
     mean: -0.177
     sigma-stat: {hi: 0., lo: 0.}
-    sigma-sys: {hi: 0.009, lo: 0.010}
+    sigma-sys: {hi: 0.010, lo: 0.010}
     dof: 1
 
 Lambda_b->LambdaJpsi::K3sc@LHCb-2020:
@@ -82,7 +82,7 @@ Lambda_b->LambdaJpsi::K4sc@LHCb-2020:
     options: {psi: J/psi}
     mean: 0.026
     sigma-stat: {hi: 0., lo: 0.}
-    sigma-sys: {hi: 0.010, lo: 1.0e-3}
+    sigma-sys: {hi: 0.010, lo: 0.010}
     dof: 1
 
 Lambda_b->LambdaJpsi::abs_aplus@LHCb-2020:
@@ -102,7 +102,7 @@ Lambda_b->LambdaJpsi::abs_aminus@LHCb-2020:
     options: {psi: J/psi}
     mean: 1.021
     sigma-stat: {hi: 0., lo: 0.}
-    sigma-sys: {hi: 0.02, lo: 0.023}
+    sigma-sys: {hi: 0.03, lo: 0.023}
     dof: 1
 
 Lambda_b->LambdaJpsi::abs_bplus@LHCb-2020:
@@ -112,7 +112,7 @@ Lambda_b->LambdaJpsi::abs_bplus@LHCb-2020:
     options: {psi: J/psi}
     mean: 1.0
     sigma-stat: {hi: 0., lo: 0.}
-    sigma-sys: {hi: 1.0e-1, lo: 1.0e-1}
+    sigma-sys: {hi: 0.05, lo: 0.05}
     dof: 1
 
 Lambda_b->LambdaJpsi::abs_bminus@LHCb-2020:
@@ -152,7 +152,7 @@ Lambda_b->LambdaJpsi::arg_bplus@LHCb-2020:
     options: {psi: J/psi}
     mean: 0.0
     sigma-stat: {hi: 0., lo: 0.}
-    sigma-sys: {hi: 1.0e-1, lo: 1.0e-1}
+    sigma-sys: {hi: 0.05, lo: 0.05}
     dof: 1
 
 Lambda_b->LambdaJpsi::arg_bminus@LHCb-2020:

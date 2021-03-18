@@ -125,6 +125,50 @@ namespace eos
     // }}}
 
 
+    // Lambda_b -> Lambda
+    // {{{
+    ObservableGroup
+    make_Lb_to_L_group()
+    {
+        auto imp = new Implementation<ObservableGroup>(
+            R"(Nonlocal form factors in $\Lambda_b \to \Lambda$ transitions)",
+            "",
+            {
+                // Nonlocal form factors 
+                make_observable("Lambda_b->Lambda::re_H_V_perp(q2)", R"(\text{Re}(H_{V, \perp}(q^2)))",
+                         &NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>::re_H_V_perp,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::im_H_V_perp(q2)", R"(\text{Im}(H_{V, \perp}(q^2)))",
+                         &NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>::im_H_V_perp,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::re_H_V_long(q2)", R"(\text{Re}(H_{V, 0}(q^2)))",
+                         &NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>::re_H_V_long,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::im_H_V_long(q2)", R"(\text{Im}(H_{V, 0}(q^2)))",
+                         &NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>::im_H_V_long,
+                        std::make_tuple("q2")),
+
+                make_observable("Lambda_b->Lambda::re_H_A_perp(q2)", R"(\text{Re}(H_{A, \perp}(q^2)))",
+                         &NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>::re_H_A_perp,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::im_H_A_perp(q2)", R"(\text{Im}(H_{A, \perp}(q^2)))",
+                         &NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>::im_H_A_perp,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::re_H_A_long(q2)", R"(\text{Re}(H_{A, 0}(q^2)))",
+                         &NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>::re_H_A_long,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::im_H_A_long(q2)", R"(\text{Im}(H_{A, 0}(q^2)))",
+                         &NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>::im_H_A_long,
+                        std::make_tuple("q2")),
+
+            }
+        );
+
+        return ObservableGroup(imp);
+    }
+    // }}}
+
+
 
 #if 0
     // B_q -> P l^+l^-
@@ -1303,6 +1347,8 @@ namespace eos
 
                 // Lambda_b -> Lambda psi
                 make_Lb_to_L_psi_group(),
+                // Lambda_b -> Lambda
+                make_Lb_to_L_group(),
 
                 // B -> X_s {gamma, l^+ l^-}
                 make_b_to_xs_group(),
