@@ -135,18 +135,18 @@ namespace eos
 
             return { A_V_perp, A_V_long, A_A_perp, A_A_long };
         }
-        double s_minus(const double & q) const
+        double s_minus(const double & q2) const
         {
             const double m_LamB = this->m_LamB();
             const double m_Lam = this->m_Lam();
-            return pow(m_LamB - m_Lam, 2.0) - pow(q, 2.0);
+            return pow(m_LamB - m_Lam, 2.0) - q2;
         }
 
-        double s_plus(const double & q) const
+        double s_plus(const double & q2) const
         {
             const double m_LamB = this->m_LamB();
             const double m_Lam = this->m_Lam();
-            return pow(m_LamB + m_Lam, 2.0) - pow(q ,2.0);
+            return pow(m_LamB + m_Lam, 2.0) - q2;
         }
         double branching_ratio() const
         {
@@ -155,63 +155,120 @@ namespace eos
             const double m_Lam = this->m_Lam();
             const double tau_LamB = this->tau_LamB();
             const double hbar = this->hbar();
-            const double m_psi = this->m_psi();
+            const double m_psi2 = pow(this->m_psi(), 2.0);
 
-            const auto lambda = eos::lambda(pow(m_LamB, 2.0), pow(m_Lam, 2.0), pow(m_psi, 2.0));
+            const auto lambda = eos::lambda(pow(m_LamB, 2.0), pow(m_Lam, 2.0), m_psi2);
 
             const auto prefactor =  pow(g_fermi * abs(model->ckm_cb() * (model->ckm_cs())), 2.0)
                     * tau_LamB / hbar * 3.0/ (M_PI) * m_LamB * sqrt(lambda);
 
-            const auto amps_res = s_minus(m_psi)* (pow(m_LamB + m_Lam, 2.0)/(2.0 * pow(m_psi, 2.0)) * norm(amps.A_V_long) + norm(amps.A_V_perp))
-                                + s_plus(m_psi) *  (pow(m_LamB - m_Lam, 2.0)/(2.0 * pow(m_psi, 2.0)) * norm(amps.A_A_long) + norm(amps.A_A_perp));
+            const auto amps_res = s_minus(m_psi2)* (pow(m_LamB + m_Lam, 2.0)/(2.0 * pow(m_psi, 2.0)) * norm(amps.A_V_long) + norm(amps.A_V_perp))
+                                + s_plus(m_psi2) *  (pow(m_LamB - m_Lam, 2.0)/(2.0 * pow(m_psi, 2.0)) * norm(amps.A_A_long) + norm(amps.A_A_perp));
             return prefactor * amps_res;
+        }
+
+        complex<double> A_perp_1() const
+        {
+            const double m_psi2 = pow(this->m_psi(), 2.0);
+
+            return pow(2.0 * s_minus(m_psi2), 0.5) * residue_H_V_perp();
+        }
+
+        complex<double> A_perp_0() const
+        {
+            const double m_psi2 = pow(this->m_psi(), 2.0);
+            const double m_LamB = this->m_LamB();
+            const double m_Lam = this->m_Lam();
+
+            return - (m_LamB + m_Lam) / pow(m_psi2, 0.5) * pow(s_minus(m_psi2), 0.5) * residue_H_V_long();
+        }
+
+        complex<double> A_para_1() const
+        {
+            const double m_psi2 = pow(this->m_psi(), 2.0);
+
+            return - pow(2.0 * s_plus(m_psi2), 0.5) * residue_H_A_perp();
+        }
+
+        complex<double> A_para_0() const
+        {
+            const double m_psi2 = pow(this->m_psi(), 2.0);
+            const double m_LamB = this->m_LamB();
+            const double m_Lam = this->m_Lam();
+
+            return (m_LamB - m_Lam) / pow(m_psi2, 0.5) * pow(s_plus(m_psi2), 0.5) * residue_H_A_long();
         }
 
         double residue_norm() const
         {
-            return norm(residue_H_V_perp()) + norm(residue_H_V_long()) + norm(residue_H_A_perp()) +norm(residue_H_A_long());
+            const complex<double> A_perp_1 = this->A_perp_1();
+            const complex<double> A_perp_0 = this->A_perp_0();
+            const complex<double> A_para_1 = this->A_para_1();
+            const complex<double> A_para_0 = this->A_para_0();
+
+            return norm( A_perp_1 ) + norm(A_perp_0 ) + norm(A_para_1) + norm(A_para_0);
         }
 
         //===============Angular-Observable===================//
         double K1ss() const
         {
+            const complex<double> A_perp_1 = this->A_perp_1();
+            const complex<double> A_perp_0 = this->A_perp_0();
+            const complex<double> A_para_1 = this->A_para_1();
+            const complex<double> A_para_0 = this->A_para_0();
 
-            return 1.0/(4.0 * residue_norm()) * (norm(residue_H_V_perp()) + norm(residue_H_A_perp()) + 2.0 * norm(residue_H_V_long()) + 2.0 * norm(residue_H_A_long()));
+            return 1.0/(4.0 * residue_norm()) * (norm(A_perp_1) + norm( A_para_1) + 2.0 * norm(A_perp_0) + 2.0 * norm(A_para_0));
         }
 
         double K1cc() const
         {
+            const complex<double> A_perp_1 = this->A_perp_1();
+            const complex<double> A_para_1 = this->A_para_1();
 
-            return 1.0/(2.0 * residue_norm()) * (norm(residue_H_V_perp()) + norm(residue_H_A_perp()));
+            return 1.0/(2.0 * residue_norm()) * ( norm(A_perp_1) + norm(A_para_1) );
         }
 
         double K2ss() const
         {
             const double alpha = this->alpha();
+            const complex<double> A_perp_1 = this->A_perp_1();
+            const complex<double> A_perp_0 = this->A_perp_0();
+            const complex<double> A_para_1 = this->A_para_1();
+            const complex<double> A_para_0 = this->A_para_0();
 
-            return alpha/(2.0 * residue_norm()) * real( residue_H_V_perp() * conj( -1.0 * residue_H_A_perp() ) + 2.0 * residue_H_V_long() * conj( -1.0 * residue_H_A_long() ) );
+            return alpha/(2.0 * residue_norm()) * real( A_perp_1 * conj( A_para_1) + 2.0 * A_perp_0 * conj( A_para_0));
         }
 
         double K2cc() const
         {
             const double alpha = this->alpha();
+            const complex<double> A_perp_1 = this->A_perp_1();
+            const complex<double> A_para_1 = this->A_para_1();
 
-            return  alpha/residue_norm() * real( residue_H_V_perp() * conj( -1.0 * residue_H_A_perp() ) );
+            return  alpha/residue_norm() * real( A_perp_1 * conj( A_para_1) );
         }
 
 
         double K3sc() const
         {
             const double alpha = this->alpha();
+            const complex<double> A_perp_1 = this->A_perp_1();
+            const complex<double> A_perp_0 = this->A_perp_0();
+            const complex<double> A_para_1 = this->A_para_1();
+            const complex<double> A_para_0 = this->A_para_0();
 
-            return alpha/( pow(2.0, 0.5) * residue_norm()) * imag( residue_H_V_perp() * conj( residue_H_V_long() ) - (-1.0 * residue_H_A_perp() ) * conj(-1.0 * residue_H_A_long() ) );
+            return alpha/( pow(2.0, 0.5) * residue_norm()) * imag( A_perp_1 * conj( A_perp_0) - A_para_1 * conj( A_para_0 ) );
         }
 
         double K4sc() const
         {
             const double alpha = this->alpha();
+            const complex<double> A_perp_1 = this->A_perp_1();
+            const complex<double> A_perp_0 = this->A_perp_0();
+            const complex<double> A_para_1 = this->A_para_1();
+            const complex<double> A_para_0 = this->A_para_0();
 
-            return alpha/( pow(2.0, 0.5) * residue_norm()) * real( residue_H_V_perp() * conj(-1.0 * residue_H_A_long() ) - ( -1.0 * residue_H_A_perp() ) * conj(residue_H_V_long()));
+            return alpha/( pow(2.0, 0.5) * residue_norm()) * real( A_perp_1 * conj( A_para_0) - A_para_1 * conj( A_perp_0) );
         }
 
         //===============Parameters===================//
