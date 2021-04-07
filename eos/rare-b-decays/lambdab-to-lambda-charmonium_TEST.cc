@@ -88,13 +88,13 @@ class LambdabToLambdaCharmoniumBRvD2021 :
 
             //===============Angular-Observable===================//
 
-            TEST_CHECK_NEARLY_EQUAL(c.branching_ratio(), 16858.471949, eps);
-            TEST_CHECK_NEARLY_EQUAL(c.K1ss(),  0.286214, eps);
-            TEST_CHECK_NEARLY_EQUAL(c.K1cc(),  0.427572, eps);
-            TEST_CHECK_NEARLY_EQUAL(c.K2ss(), -0.198159, eps);
-            TEST_CHECK_NEARLY_EQUAL(c.K2cc(), -0.319556, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.branching_ratio(), 269735.55119, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.K1ss(),  0.30018, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.K1cc(),  0.39964, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.K2ss(), -0.165993, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.K2cc(), -0.240588, eps);
             TEST_CHECK_NEARLY_EQUAL(c.K3sc(),       0.0, eps);
-            TEST_CHECK_NEARLY_EQUAL(c.K4sc(), -0.0642176, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.K4sc(), 0.029571, eps);
 
             //===============Parameters===================//
 

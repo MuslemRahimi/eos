@@ -162,8 +162,8 @@ namespace eos
             const auto prefactor =  pow(g_fermi * abs(model->ckm_cb() * (model->ckm_cs())), 2.0)
                     * tau_LamB / hbar * 3.0/ (M_PI) * m_LamB * sqrt(lambda);
 
-            const auto amps_res = s_minus(m_psi2)* (pow(m_LamB + m_Lam, 2.0)/(2.0 * pow(m_psi, 2.0)) * norm(amps.A_V_long) + norm(amps.A_V_perp))
-                                + s_plus(m_psi2) *  (pow(m_LamB - m_Lam, 2.0)/(2.0 * pow(m_psi, 2.0)) * norm(amps.A_A_long) + norm(amps.A_A_perp));
+            const auto amps_res = s_minus(m_psi2)* (pow(m_LamB + m_Lam, 2.0)/(2.0 * m_psi2) * norm(amps.A_V_long) + norm(amps.A_V_perp))
+                                + s_plus(m_psi2) *  (pow(m_LamB - m_Lam, 2.0)/(2.0 * m_psi2) * norm(amps.A_A_long) + norm(amps.A_A_perp));
             return prefactor * amps_res;
         }
 
@@ -187,7 +187,7 @@ namespace eos
         {
             const double m_psi2 = pow(this->m_psi(), 2.0);
 
-            return - pow(2.0 * s_plus(m_psi2), 0.5) * residue_H_A_perp();
+            return -pow(2.0 * s_plus(m_psi2), 0.5) * residue_H_A_perp();
         }
 
         complex<double> A_para_0() const
@@ -273,50 +273,89 @@ namespace eos
 
         //===============Parameters===================//
 
+        complex<double> aplus() const
+        {
+        	const double m_psi2 = pow(this->m_psi(), 2.0);
+            const double m_LamB = this->m_LamB();
+            const double m_Lam = this->m_Lam();
+
+            return  ( (m_LamB + m_Lam) / pow(m_psi2, 0.5) * pow(s_minus(m_psi2), 0.5) * residue_H_V_long() 
+            	- (m_LamB - m_Lam) / pow(m_psi2, 0.5) * pow(s_plus(m_psi2), 0.5) * residue_H_A_long()) ;
+        }
         double abs_aplus() const
         {
-            return abs( 1.0/(pow(2.0, 0.5)) * ( residue_H_V_long() - residue_H_A_long()) );
-        }
-
-        double abs_aminus() const
-        {
-            return abs( 1.0/(pow(2.0, 0.5)) * ( residue_H_V_long() + residue_H_A_long()) );
-        }
-
-        double abs_bplus() const
-        {
-            return  abs(1.0/(pow(2.0, 0.5)) * (residue_H_V_perp() + residue_H_A_perp()) );
-        }
-
-        double abs_bminus() const
-        {
-            return  abs( 1.0/(pow(2.0, 0.5)) * ( residue_H_V_perp() - residue_H_A_perp()) );
+            return abs( aplus() );
         }
 
         double arg_aplus() const
         {
-            return arg(1.0/(pow(2.0, 0.5)) * (residue_H_V_long() - residue_H_A_long() ) ) ;
+        	return arg( aplus() );
+        }
+
+        complex<double> aminus() const
+        {
+        	const double m_psi2 = pow(this->m_psi(), 2.0);
+            const double m_LamB = this->m_LamB();
+            const double m_Lam = this->m_Lam();
+
+            return  ( (m_LamB + m_Lam) / pow(m_psi2, 0.5) * pow(s_minus(m_psi2), 0.5) * residue_H_V_long() 
+            	+ (m_LamB - m_Lam) / pow(m_psi2, 0.5) * pow(s_plus(m_psi2), 0.5) * residue_H_A_long());
+        }
+
+        double abs_aminus() const
+        {
+            return abs( aminus() );
         }
 
         double arg_aminus() const
         {
-            return arg( 1.0/(pow(2.0, 0.5)) * (residue_H_V_long() + residue_H_A_long()) );
+        	return arg( aminus() );
+        }
+
+        complex<double> bplus() const
+        {
+        	const double m_psi2 = pow(this->m_psi(), 2.0);
+
+            return  ( pow(2.0 * s_minus(m_psi2), 0.5) * residue_H_V_perp()
+            	+ pow(2.0 * s_plus(m_psi2), 0.5) * residue_H_A_perp());
+        }
+
+        double abs_bplus() const
+        {
+        	return abs( bplus() );
         }
 
         double arg_bplus() const
         {
-            return  arg( 1.0/(pow(2.0, 0.5)) * (residue_H_V_perp() + residue_H_A_perp()) );
+        	return arg ( bplus() );
         }
 
+        complex<double> bminus() const
+        {
+        	const double m_psi2 = pow(this->m_psi(), 2.0);
+
+            return  ( pow(2.0 * s_minus(m_psi2), 0.5) * residue_H_V_perp() 
+            	- pow(2.0 * s_plus(m_psi2), 0.5) * residue_H_A_perp());
+        }
+
+        double abs_bminus() const
+        {
+        	return abs( bminus() );
+        }
         double arg_bminus() const
         {
-            return arg( 1.0/(pow(2.0, 0.5)) * (residue_H_V_perp() - residue_H_A_perp()) );
+        	return arg( bminus() );
         }
 
         double alpha_b() const
         {
-            double norm = pow(abs_aplus(), 2.0) + pow(abs_aminus(), 2.0) + pow(abs_bplus(), 2.0) + pow(abs_bminus(), 2.0);
-            return 1.0/norm * ( pow(abs_aplus(), 2.0) - pow(abs_aminus(), 2.0) + pow(abs_bplus(), 2.0) - pow(abs_bminus(), 2.0));
+        	const complex<double> aplus = this->aplus();
+            const complex<double> aminus = this->aminus();
+            const complex<double> bplus = this->bplus();
+            const complex<double> bminus = this->bminus();
+
+            double normal =  (norm( aplus ) + norm( aminus ) + norm( bplus ) + norm( bminus ) );
+            return 1.0/normal * ( norm( aplus ) - norm( aminus ) + norm( bplus ) - norm( bminus  ) );
         }
     };
 
