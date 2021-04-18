@@ -391,4 +391,298 @@ Lambda_b->Lambdamu^+mu^-::BR[15.0,20.0]@BMvD-2019:
     sigma-sys: {hi: 9.2e-08, lo: -9.2e-08}
     dof: 1
 # }}}
- 
+#
+# Nonlocal FF BRvD2021
+#
+# {{{
+Lambda_b->Lambda::re_H_V_perp7@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::re_H_V_perp(q2)"
+  kinematics: {q2: -7}
+  options: {}
+  mean: -1.95058e-3
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::im_H_V_perp7@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::im_H_V_perp(q2)"
+  kinematics: {q2: -7}
+  options: {}
+  mean: -1.13266e-2
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-2, lo: 0.4e-2}
+  dof: 1
+Lambda_b->Lambda::re_H_V_perp5@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::re_H_V_perp(q2)"
+  kinematics: {q2: -5}
+  options: {}
+  mean: -1.89042e-3
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::im_H_V_perp5@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::im_H_V_perp(q2)"
+  kinematics: {q2: -5}
+  options: {}
+  mean: -1.37341e-2
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-2, lo: 0.4e-2}
+  dof: 1
+Lambda_b->Lambda::re_H_V_perp3@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::re_H_V_perp(q2)"
+  kinematics: {q2: -3}
+  options: {}
+  mean: -1.16064e-3
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::im_H_V_perp3@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::im_H_V_perp(q2)"
+  kinematics: {q2: -3}
+  options: {}
+  mean: -1.66935e-2
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-2, lo: 0.4e-2}
+  dof: 1
+Lambda_b->Lambda::re_H_V_perp1@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::re_H_V_perp(q2)"
+  kinematics: {q2: -1}
+  options: {}
+  mean: 7.52352e-4
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::im_H_V_perp1@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::im_H_V_perp(q2)"
+  kinematics: {q2: -1}
+  options: {}
+  mean: -2.03641e-2
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-2, lo: 0.4e-2}
+  dof: 1
+
+Lambda_b->Lambda::re_H_V_long7@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::re_H_V_long(q2)"
+  kinematics: {q2: -7}
+  options: {}
+  mean: -2.16295e-3
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::im_H_V_long7@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::im_H_V_long(q2)"
+  kinematics: {q2: -7}
+  options: {}
+  mean: 2.62502e-3
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-2, lo: 0.4e-2}
+  dof: 1
+Lambda_b->Lambda::re_H_V_long5@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::re_H_V_long(q2)"
+  kinematics: {q2: -5}
+  options: {}
+  mean: -2.34567e-3
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::im_H_V_long5@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::im_H_V_long(q2)"
+  kinematics: {q2: -5}
+  options: {}
+  mean: 2.24365e-3
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-2, lo: 0.4e-2}
+  dof: 1
+Lambda_b->Lambda::re_H_V_long3@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::re_H_V_long(q2)"
+  kinematics: {q2: -3}
+  options: {}
+  mean: -2.08955e-3
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::im_H_V_long3@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::im_H_V_long(q2)"
+  kinematics: {q2: -3}
+  options: {}
+  mean: 1.61729e-3
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-2, lo: 0.4e-2}
+  dof: 1
+Lambda_b->Lambda::re_H_V_long1@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::re_H_V_long(q2)"
+  kinematics: {q2: -1}
+  options: {}
+  mean: -1.02546e-3
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::im_H_V_long1@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::im_H_V_long(q2)"
+  kinematics: {q2: -1}
+  options: {}
+  mean: 6.54106e-4
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+
+Lambda_b->Lambda::re_H_A_perp7@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::re_H_A_perp(q2)"
+  kinematics: {q2: -7}
+  options: {}
+  mean: -3.29216e-4
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::im_H_A_perp7@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::im_H_A_perp(q2)"
+  kinematics: {q2: -7}
+  options: {}
+  mean: -7.50801e-3
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::re_H_A_perp5@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::re_H_A_perp(q2)"
+  kinematics: {q2: -5}
+  options: {}
+  mean: -3.75072e-4
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::im_H_A_perp5@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::im_H_A_perp(q2)"
+  kinematics: {q2: -5}
+  options: {}
+  mean: -8.95011e-3
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::re_H_A_perp3@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::re_H_A_perp(q2)"
+  kinematics: {q2: -3}
+  options: {}
+  mean: -1.2757e-4
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::im_H_A_perp3@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::im_H_A_perp(q2)"
+  kinematics: {q2: -3}
+  options: {}
+  mean: -1.06969e-2
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::re_H_A_perp1@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::re_H_A_perp(q2)"
+  kinematics: {q2: -1}
+  options: {}
+  mean: 7.13546e-4
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::im_H_A_perp1@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::im_H_A_perp(q2)"
+  kinematics: {q2: -1}
+  options: {}
+  mean: -1.2833e-2
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+
+Lambda_b->Lambda::re_H_A_long7@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::re_H_A_long(q2)"
+  kinematics: {q2: -7}
+  options: {}
+  mean: -1.38277e-3
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::im_H_A_long7@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::im_H_A_long(q2)"
+  kinematics: {q2: -7}
+  options: {}
+  mean: 2.76726e-3
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::re_H_A_long5@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::re_H_A_long(q2)"
+  kinematics: {q2: -5}
+  options: {}
+  mean: -1.5648e-3
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::im_H_A_long5@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::im_H_A_long(q2)"
+  kinematics: {q2: -5}
+  options: {}
+  mean: 2.34979e-3
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::re_H_A_long3@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::re_H_A_long(q2)"
+  kinematics: {q2: -3}
+  options: {}
+  mean: -1.44364e-3
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::im_H_A_long3@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::im_H_A_long(q2)"
+  kinematics: {q2: -3}
+  options: {}
+  mean: 1.67978e-3
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::re_H_A_long1@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::re_H_A_long(q2)"
+  kinematics: {q2: -1}
+  options: {}
+  mean: -7.29171e-4
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
+Lambda_b->Lambda::im_H_A_long1@BRvD2021:
+  type: Gaussian
+  observable: "Lambda_b->Lambda::im_H_A_long(q2)"
+  kinematics: {q2: -1}
+  options: {}
+  mean: 6.72337e-4
+  sigma-stat: {hi: 0, lo: 0}
+  sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
+  dof: 1
