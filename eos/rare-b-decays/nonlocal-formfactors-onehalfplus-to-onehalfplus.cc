@@ -47,6 +47,7 @@ namespace eos
             public NonlocalFormFactor<nc::OneHalfPlusToOneHalfPlus>
         {
             private:
+                std::shared_ptr<FormFactors<OneHalfPlusToOneHalfPlus>> form_factors;
 
                 //Polynomial expansion parameters
                 UsedParameter re_alpha_0_V_long;
@@ -98,6 +99,7 @@ namespace eos
 
             public:
                 BRvD2021(const Parameters & p, const Options & o) :
+                form_factors(FormFactorFactory<OneHalfPlusToOneHalfPlus>::create(stringify(Process_::label) + "::" + o.get("form-factors", "DM2016"), p)),
 
                 re_alpha_0_V_long(p[stringify(Process_::label) + "ccbar::Re{alpha_0^V_long}@BRvD2021"], *this),
                 im_alpha_0_V_long(p[stringify(Process_::label) + "ccbar::Im{alpha_0^V_long}@BRvD2021"], *this),
@@ -137,9 +139,12 @@ namespace eos
                 t_0(p["b->sccbar::t_0"], *this),
 
                 t_s(p["b->sccbar::t_s"], *this),
-                chiOPE(p["b->sccbar::chiOPE@BRvD2021"], *this)
+                chiOPE(p["b->sccbar::chiOPE@GvDV2020"], *this)
 
                 {
+                    //this->uses(*form_factors);
+                    //If running test case I get the error
+                    //Running test case 'lambdab_to_lambda_charmonium_BRvD2021_test' FAIL lambdab-to-lambda-charmonium_TEST (exit status: 139)
                 }
 
                 ~BRvD2021() = default;
@@ -153,7 +158,7 @@ namespace eos
 
                 inline complex<double> phi(const double & q2, const unsigned phiParam[5]) const
                 {
-                    // Values of a, b, c and d depends on the form factor:
+                    // Values of a, b, c and d depends on the nonlocal form factor:
                     // FF              a    b    c    d    e
                     // phi_(V,long)    1    0    4    1    0
                     // phi_(V,perp)    0    0    3    1    0
@@ -381,9 +386,32 @@ namespace eos
 
                     const unsigned phiParam[5] = {0,0,3,0,1};
 
-                    return H_residue_jpsi(phiParam, alpha_0, alpha_1, alpha_2);
+                    return H_residue_psi2s(phiParam, alpha_0, alpha_1, alpha_2);
                 };
 
+                virtual complex<double> ratio_H_V_long(const double & q2) const
+                {
+                    const double F_V_long = form_factors->f_long_v(q2);
+                    return H_V_long(q2) / F_V_long;
+                };
+
+                virtual complex<double> ratio_H_V_perp(const double & q2) const
+                {
+                    const double F_V_perp = form_factors->f_perp_v(q2);
+                    return H_V_perp(q2) / F_V_perp;
+                };
+
+                virtual complex<double> ratio_H_A_long(const double & q2) const
+                {
+                    const double F_A_long = form_factors->f_long_a(q2);
+                    return H_A_long(q2) / F_A_long;
+                };
+
+                virtual complex<double> ratio_H_A_perp(const double & q2) const
+                {
+                    const double F_A_perp = form_factors->f_perp_a(q2);
+                    return H_A_perp(q2) / F_A_perp;
+                };
 
                 static NonlocalFormFactorPtr<nc::OneHalfPlusToOneHalfPlus> make(const Parameters & p, const Options & o)
                 {
@@ -432,8 +460,8 @@ namespace eos
 
                      const unsigned phiParam_A_perp[5] ={0, 0, 3, 0, 1}; // A_perp polarization
 
-					results.add({ real(this->phi(q2, phiParam_A_perp)), "Re{phi_A_long(q2 = 16.0)}" });
-					results.add({ imag(this->phi(q2, phiParam_A_perp)), "Im{phi_A_long(q2 = 16.0)}" });
+                    results.add({ real(this->phi(q2, phiParam_A_perp)), "Re{phi_A_long(q2 = 16.0)}" });
+                    results.add({ imag(this->phi(q2, phiParam_A_perp)), "Im{phi_A_long(q2 = 16.0)}" });
 
                     //===================Testcase for nonlocal FF======================//
 
@@ -463,6 +491,17 @@ namespace eos
                     results.add({ real(this->H_A_perp_residue_jpsi()), "Re{H_A_perp_residue_jpsi()}" });
                     results.add({ imag(this->H_A_perp_residue_jpsi()), "Im{H_A_perp_residue_jpsi()}" });
 
+                    //============Testcase for ratio of nonlocal FF / local FF ============//
+
+                    results.add({ real(this->ratio_H_V_long(q2)), "Re{ratio_H_V_long(q2)}" });
+                    results.add({ imag(this->ratio_H_V_long(q2)), "Im{ratio_H_V_long(q2)}" });
+                    results.add({ real(this->ratio_H_V_perp(q2)), "Re{ratio_H_V_perp(q2)}" });
+                    results.add({ imag(this->ratio_H_V_perp(q2)), "Im{ratio_H_V_perp(q2)}" });
+
+                    results.add({ real(this->ratio_H_A_long(q2)), "Re{ratio_H_A_long(q2)}" });
+                    results.add({ imag(this->ratio_H_A_long(q2)), "Im{ratio_H_A_long(q2)}" });
+                    results.add({ real(this->ratio_H_A_perp(q2)), "Re{ratio_H_A_perp(q2)}" });
+                    results.add({ imag(this->ratio_H_A_perp(q2)), "Im{ratio_H_A_perp(q2)}" });
 
                     return results;
                 }
@@ -570,6 +609,64 @@ namespace eos
     {
         return imag(this->_imp->nc->H_A_long(q2));
     }
+
+    template <typename Process_>
+    double
+    NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>::re_ratio_H_V_long(const double & q2) const
+    {
+        return real(this->_imp->nc->ratio_H_V_long(q2));
+    }
+
+    template <typename Process_>
+    double
+    NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>::im_ratio_H_V_long(const double & q2) const
+    {
+        return imag(this->_imp->nc->ratio_H_V_long(q2));
+    }
+
+    template <typename Process_>
+    double
+    NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>::re_ratio_H_V_perp(const double & q2) const
+    {
+        return real(this->_imp->nc->ratio_H_V_perp(q2));
+    }
+
+    template <typename Process_>
+    double
+    NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>::im_ratio_H_V_perp(const double & q2) const
+    {
+        return imag(this->_imp->nc->ratio_H_V_perp(q2));
+    }
+
+    template <typename Process_>
+    double
+    NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>::re_ratio_H_A_long(const double & q2) const
+    {
+        return real(this->_imp->nc->ratio_H_A_long(q2));
+    }
+
+    template <typename Process_>
+    double
+    NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>::im_ratio_H_A_long(const double & q2) const
+    {
+        return imag(this->_imp->nc->ratio_H_A_long(q2));
+    }
+
+    template <typename Process_>
+    double
+    NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>::re_ratio_H_A_perp(const double & q2) const
+    {
+        return real(this->_imp->nc->ratio_H_A_perp(q2));
+    }
+
+    template <typename Process_>
+    double
+    NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>::im_ratio_H_A_perp(const double & q2) const
+    {
+        return imag(this->_imp->nc->ratio_H_A_perp(q2));
+    }
+
+
 
     template class NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>;
 }

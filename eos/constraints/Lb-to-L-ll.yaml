@@ -395,12 +395,12 @@ Lambda_b->Lambdamu^+mu^-::BR[15.0,20.0]@BMvD-2019:
 # Nonlocal FF BRvD2021
 #
 # {{{
-Lambda_b->Lambda::re_H_V_perp7@BRvD2021:
+Lambda_b->Lambda::re_ratio_H_V_perp7@BRvD2021:
   type: Gaussian
-  observable: "Lambda_b->Lambda::re_H_V_perp(q2)"
+  observable: "Lambda_b->Lambda::re_ratio_H_V_perp(q2)"
   kinematics: {q2: -7}
   options: {}
-  mean: -1.95058e-3
+  mean: -1.95058e-6
   sigma-stat: {hi: 0, lo: 0}
   sigma-sys: {hi: 0.4e-3, lo: 0.4e-3}
   dof: 1

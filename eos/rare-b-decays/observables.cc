@@ -161,6 +161,31 @@ namespace eos
                          &NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>::im_H_A_long,
                         std::make_tuple("q2")),
 
+                make_observable("Lambda_b->Lambda::re_ratio_H_A_perp(q2)", R"(\text{Re}(H_{A, \perp}(q^2)/F_{A, \perp}(q^2)))",
+                         &NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>::re_ratio_H_A_perp,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::im_ratio_H_A_perp(q2)", R"(\text{Im}(H_{A, \perp}(q^2)/F_{A, \perp}(q^2)))",
+                         &NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>::im_ratio_H_A_perp,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::re_ratio_H_A_long(q2)", R"(\text{Re}(H_{A, 0}(q^2)/F_{A, 0}(q^2)))",
+                         &NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>::re_ratio_H_A_long,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::im_ratio_H_A_long(q2)", R"(\text{Im}(H_{A, 0}(q^2)/F_{A, 0}(q^2)))",
+                         &NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>::im_ratio_H_A_long,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::re_ratio_H_V_perp(q2)", R"(\text{Re}(H_{V, \perp}(q^2)/F_{V, \perp}(q^2)))",
+                         &NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>::re_ratio_H_V_perp,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::im_ratio_H_V_perp(q2)", R"(\text{Im}(H_{V, \perp}(q^2)/F_{V, \perp}(q^2)))",
+                         &NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>::im_ratio_H_V_perp,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::re_ratio_H_V_long(q2)", R"(\text{Re}(H_{V, 0}(q^2)/F_{V, 0}(q^2)))",
+                         &NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>::re_ratio_H_V_long,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::im_ratio_H_V_long(q2)", R"(\text{Im}(H_{V, 0}(q^2)/F_{V, 0}(q^2)))",
+                         &NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>::im_ratio_H_V_long,
+                        std::make_tuple("q2")),
+
             }
         );
 

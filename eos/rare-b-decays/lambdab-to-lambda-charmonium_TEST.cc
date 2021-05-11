@@ -98,17 +98,17 @@ class LambdabToLambdaCharmoniumBRvD2021 :
 
             //===============Parameters===================//
 
-            TEST_CHECK_NEARLY_EQUAL(c.abs_aplus(),  1.16454, eps);
-            TEST_CHECK_NEARLY_EQUAL(c.abs_aminus(), 2.80841, eps);
-            TEST_CHECK_NEARLY_EQUAL(c.abs_bplus(),  7.38048, eps);
-            TEST_CHECK_NEARLY_EQUAL(c.abs_bminus(), 0.309115, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.abs_aplus(),  16.16938450, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.abs_aminus(), 32.70378886, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.abs_bplus(),  69.1171046, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.abs_bminus(), 22.866962, eps);
 
             TEST_CHECK_NEARLY_EQUAL(c.arg_aplus(),  0.785398, eps);
             TEST_CHECK_NEARLY_EQUAL(c.arg_aminus(), -2.35619, eps);
             TEST_CHECK_NEARLY_EQUAL(c.arg_bplus(),  -2.35619, eps);
             TEST_CHECK_NEARLY_EQUAL(c.arg_bminus(), 0.785398, eps);
 
-            TEST_CHECK_NEARLY_EQUAL(c.alpha_b(), 0.749799, eps);
+            TEST_CHECK_NEARLY_EQUAL(c.alpha_b(), 0.519704, eps);
 
         }
 } lambdab_to_lambda_charmonium_BRvD2021_test;

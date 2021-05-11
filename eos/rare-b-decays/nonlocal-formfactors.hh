@@ -21,6 +21,7 @@
 #define EOS_GUARD_EOS_RARE_B_DECAYS_NONLOCAL_FORMFACTORS_HH 1
 
 #include <eos/form-factors/mesonic.hh>
+#include <eos/form-factors/baryonic.hh>
 #include <eos/utils/complex.hh>
 #include <eos/utils/diagnostics.hh>
 #include <eos/utils/options.hh>
@@ -359,6 +360,12 @@ namespace eos
             virtual complex<double> H_A_perp_residue_psi2s() const = 0;
             virtual complex<double> H_A_long_residue_psi2s() const = 0;
 
+            virtual complex<double> ratio_H_V_long(const double & q2) const = 0;
+            virtual complex<double> ratio_H_V_perp(const double & q2) const = 0;
+            virtual complex<double> ratio_H_A_long(const double & q2) const = 0;
+            virtual complex<double> ratio_H_A_perp(const double & q2) const = 0;
+
+
             /// Factory method.
             static NonlocalFormFactorPtr<nc::OneHalfPlusToOneHalfPlus> make(const QualifiedName & name, const Parameters & p, const Options & o);
 
@@ -387,6 +394,17 @@ namespace eos
 
             double re_H_A_long(const double & q2) const;
             double im_H_A_long(const double & q2) const;
+
+
+            double re_ratio_H_V_perp(const double & q2) const;
+            double im_ratio_H_V_perp(const double & q2) const;
+            double re_ratio_H_V_long(const double & q2) const;
+            double im_ratio_H_V_long(const double & q2) const;
+
+            double re_ratio_H_A_perp(const double & q2) const;
+            double im_ratio_H_A_perp(const double & q2) const;
+            double re_ratio_H_A_long(const double & q2) const;
+            double im_ratio_H_A_long(const double & q2) const;
     };
     extern template class NonlocalFormFactorObservable<nc::LambdabToLambda, nc::OneHalfPlusToOneHalfPlus>;
 

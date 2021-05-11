@@ -118,14 +118,14 @@ class NonlocalFormFactorBRvD2021Test :
                     std::make_pair( -0.275274,  eps),        // Re{H_V_long(q2 = 16.0)}
                     std::make_pair( 1.37506,  eps),        // Im{H_V_long(q2 = 16.0)}
 
-                    std::make_pair( -0.877161,  eps),        // Re{H_V_long(q2 = 16.0)}
-                    std::make_pair(  4.50042,  eps),        // Im{H_V_long(q2 = 16.0)}
+                    std::make_pair( -0.877161,  eps),        // Re{H_V_perp(q2 = 16.0)}
+                    std::make_pair(  4.50042,  eps),        // Im{H_V_perp(q2 = 16.0)}
 
                     std::make_pair( -0.437938,  eps),        // Re{H_A_long(q2 = 16.0)}
                     std::make_pair(  2.26822,  eps),        // Im{H_A_long(q2 = 16.0)}
 
-                    std::make_pair( -0.651129,  eps),        // Re{H_A_long(q2 = 16.0)}
-                    std::make_pair( 3.3887,  eps),          // Im{H_A_long(q2 = 16.0)}
+                    std::make_pair( -0.651129,  eps),        // Re{H_A_perp(q2 = 16.0)}
+                    std::make_pair( 3.3887,  eps),          // Im{H_A_perp(q2 = 16.0)}
 
                     //============Testcase for residue of nonlocal FF================//
                     std::make_pair( -0.696651,  eps),           // Re{H_V_long_residue_jpsi()}
@@ -140,6 +140,16 @@ class NonlocalFormFactorBRvD2021Test :
                     std::make_pair( -3.27275,  eps),           // Re{H_A_perp_residue_jpsi()}
                     std::make_pair( -3.27275,  eps),          // Im{H_A_perp_residue_jpsi()}
 
+                    //============Testcase for ratio of nonlocal FF / local FF ============//
+                    std::make_pair( -0.366655,  eps),          // Re{ratio_H_V_long(q2)}
+                    std::make_pair( 1.83153,  eps),          // Im{ratio_H_V_long(q2)}
+                    std::make_pair( -0.944133,  eps),          // Re{ratio_H_V_perp(q2)}
+                    std::make_pair( 4.84403,  eps),          // Im{ratio_H_V_perp(q2)}
+
+                    std::make_pair( -0.804907,  eps),          // Re{ratio_H_A_long(q2)}
+                    std::make_pair( 4.16886,  eps),          // Im{ratio_H_A_long(q2)}
+                    std::make_pair( -1.21984,  eps),          // Re{ratio_H_A_perp(q2)}
+                    std::make_pair( 6.34845,  eps),          // Im{ratio_H_A_perp(q2)}
 
                 };
 
