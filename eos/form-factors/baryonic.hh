@@ -25,6 +25,7 @@
 #include <eos/utils/options.hh>
 #include <eos/utils/parameters.hh>
 #include <eos/utils/qualified-name.hh>
+#include <eos/utils/complex.hh>
 
 #include <memory>
 #include <string>

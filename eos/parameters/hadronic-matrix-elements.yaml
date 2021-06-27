@@ -3599,6 +3599,60 @@ groups:
           max:     +1.0
   # }}}
 
+  # {{{
+  - title: 'Local form factors parameters in $Lambda_b \to Lambda$'
+    description: ''
+    parameters:
+      'Lambda_b->Lambda::a^V,t_0@BRvD2021' :
+          central: +0.0
+          min:     -1.0
+          max:     +1.0
+      'Lambda_b->Lambda::a^V,t_1@BRvD2021' :
+          central: +0.0
+          min:     -1.0
+          max:     +1.0
+      'Lambda_b->Lambda::a^V,t_2@BRvD2021' :
+          central: +0.0
+          min:     -1.0
+          max:     +1.0
+      'Lambda_b->Lambda::a^V,t_3@BRvD2021' :
+          central: +0.0
+          min:     -1.0
+          max:     +1.0
+      'Lambda_b->Lambda::a^V,long_0@BRvD2021' :
+          central: +0.0
+          min:     -1.0
+          max:     +1.0
+      'Lambda_b->Lambda::a^V,long_1@BRvD2021' :
+          central: +0.0
+          min:     -1.0
+          max:     +1.0
+      'Lambda_b->Lambda::a^V,long_2@BRvD2021' :
+          central: +0.0
+          min:     -1.0
+          max:     +1.0
+      'Lambda_b->Lambda::a^V,long_3@BRvD2021' :
+          central: +0.0
+          min:     -1.0
+          max:     +1.0
+      'Lambda_b->Lambda::a^V,perp_0@BRvD2021' :
+          central: +0.0
+          min:     -1.0
+          max:     +1.0
+      'Lambda_b->Lambda::a^V,perp_1@BRvD2021' :
+          central: +0.0
+          min:     -1.0
+          max:     +1.0
+      'Lambda_b->Lambda::a^V,perp_2@BRvD2021' :
+          central: +0.0
+          min:     -1.0
+          max:     +1.0
+      'Lambda_b->Lambda::a^V,perp_3@BRvD2021' :
+          central: +0.0
+          min:     -1.0
+          max:     +1.0
+  # }}}
+
 
 
   # Miscellaneous Form Factor Parameters

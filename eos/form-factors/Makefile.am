@@ -24,6 +24,7 @@ libeosformfactors_la_SOURCES = \
 	mesonic-processes.hh \
 	observables.cc observables.hh \
 	parametric-bgl1997.hh parametric-bgl1997-impl.hh parametric-bgl1997.cc \
+	parametric-brvd2021.hh parametric-brvd2021.cc \
 	pi-lcdas.cc pi-lcdas.hh \
 	unitarity-bounds.cc unitarity-bounds.hh \
 	zero-recoil-sum-rule.cc zero-recoil-sum-rule.hh
@@ -60,6 +61,7 @@ TESTS = \
 	mesonic_TEST \
 	mesonic-hqet_TEST \
 	parametric-bgl1997_TEST \
+	parametric_brvd2021_TEST \
 	pi-lcdas_TEST \
 	unitarity-bounds_TEST
 LDADD = \
@@ -92,6 +94,8 @@ mesonic_TEST_SOURCES = mesonic_TEST.cc
 mesonic_hqet_TEST_SOURCES = mesonic-hqet_TEST.cc
 
 parametric_bgl1997_TEST_SOURCES = parametric-bgl1997_TEST.cc
+
+parametric_brvd2021_TEST_SOURCES = parametric-brvd2021_TEST.cc
 
 pi_lcdas_TEST_SOURCES = pi-lcdas_TEST.cc
 

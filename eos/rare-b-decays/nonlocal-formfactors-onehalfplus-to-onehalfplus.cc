@@ -143,17 +143,15 @@ namespace eos
 
                 {
                     //this->uses(*form_factors);
-                    //If running test case I get the error
-                    //Running test case 'lambdab_to_lambda_charmonium_BRvD2021_test' FAIL lambdab-to-lambda-charmonium_TEST (exit status: 139)
                 }
 
                 ~BRvD2021() = default;
 
                 inline complex<double> beta(const complex<double> param) const
                 {
-                    const double s_plus = 4.0 * pow(m_D0, 2.0);
+                    const double s_p = 4.0 * pow(m_D0, 2.0);
 
-                    return pow(1.0 + param/s_plus, 0.5);
+                    return pow(1.0 + param/s_p, 0.5);
                 }
 
                 inline complex<double> phi(const double & q2, const unsigned phiParam[5]) const
@@ -170,19 +168,19 @@ namespace eos
                     const double m_D02 = pow(m_D0, 2.0 );
 
                     const double s_0    = this->t_0();
-                    const double s_plus = 4.0 * m_D02;
+                    const double s_p    = 4.0 * m_D02;
                     const double Q2     = this->t_s();
                     const double chi    = this->chiOPE();
-                    const auto   z      = eos::nc_utils::z(q2, s_plus, s_0);
+                    const auto   z      = eos::nc_utils::z(q2, s_p, s_0);
 
                     const double a = phiParam[0], b = phiParam[1], c = phiParam[2], d = phiParam[3], e= phiParam[4];
 
-                    const double Nlambda = 8.0 * M_PI * pow((s_plus-s_0)/(3*chi),0.5) * m_LamB2 * pow(m_LamB + m_Lam, a) * pow(m_LamB - m_Lam, b);
-                    const complex<double> phi1 = pow((s_0*pow(1.0 + z,2.0)*(s_0*pow(1.0 + z, 2.0) - 2.0*pow(-1.0 + z,2.0)*(m_Lam2 + m_LamB2)) + (-1.0 + pow(beta(pow(m_LamB2 - m_Lam2,2.0)),2.0)*pow(-1.0 + z,4.0) - pow(z,4.0) + z*(4.0 - 8.0*s_0 + 8.0*m_Lam2 + 8.0*m_LamB2) + pow(z,3.0)*(4.0 - 8.0*s_0 + 8.0*m_Lam2 + 8.0*m_LamB2) - 2.0*pow(z,2.0)*(3.0 + 8.0*s_0 + 8.0*m_Lam2 + 8.0*m_LamB2))*(s_plus) + 16.0*pow(z,2.0)*pow(s_plus,2.0))/pow(-1.0 + z,4.0),0.25);
-                    const complex<double> phi2 = pow((s_0*pow(1.0 + z,2.0) - 4.0*z*(s_plus))/pow(-1. + z,2.0), 0.5);
-                    const complex<double> phi3 = pow((-(s_0*pow(1.0 + z, 2.0)) + (-1.0 + pow(beta(pow(m_LamB - m_Lam, 2.0)),2.0) * pow(-1.0 + z,2.0) + 6.0*z -pow(z,2.0))*(s_plus))/pow(-1.0 + z, 2.0),0.5);
-                    const complex<double> phi4 = pow((-(s_0*pow(1.0 + z, 2.0)) + (-1.0 + pow(beta(pow(m_LamB + m_Lam, 2.0)), 2.0) * pow(-1.0 + z,2.0) + 6.0*z -pow(z,2.0))*(s_plus))/pow(-1.0 + z, 2.0),0.5);
-                    const complex<double> phi5 = pow((s_0*pow(1.0 + z, 2.0) + (1.0 - pow(beta(Q2),2.0)*pow(-1.0 + z, 2.0) - 6.0*z + pow(z,2.0))*(s_plus))/pow(-1.0 + z,2.0),-1.5);
+                    const double Nlambda = 8.0 * M_PI * pow((s_p-s_0)/(3*chi),0.5) * m_LamB2 * pow(m_LamB + m_Lam, a) * pow(m_LamB - m_Lam, b);
+                    const complex<double> phi1 = pow((s_0*pow(1.0 + z,2.0)*(s_0*pow(1.0 + z, 2.0) - 2.0*pow(-1.0 + z,2.0)*(m_Lam2 + m_LamB2)) + (-1.0 + pow(beta(pow(m_LamB2 - m_Lam2,2.0)),2.0)*pow(-1.0 + z,4.0) - pow(z,4.0) + z*(4.0 - 8.0*s_0 + 8.0*m_Lam2 + 8.0*m_LamB2) + pow(z,3.0)*(4.0 - 8.0*s_0 + 8.0*m_Lam2 + 8.0*m_LamB2) - 2.0*pow(z,2.0)*(3.0 + 8.0*s_0 + 8.0*m_Lam2 + 8.0*m_LamB2))*(s_p) + 16.0*pow(z,2.0)*pow(s_p,2.0))/pow(-1.0 + z,4.0),0.25);
+                    const complex<double> phi2 = pow((s_0*pow(1.0 + z,2.0) - 4.0*z*(s_p))/pow(-1. + z,2.0), 0.5);
+                    const complex<double> phi3 = pow((-(s_0*pow(1.0 + z, 2.0)) + (-1.0 + pow(beta(pow(m_LamB - m_Lam, 2.0)),2.0) * pow(-1.0 + z,2.0) + 6.0*z -pow(z,2.0))*(s_p))/pow(-1.0 + z, 2.0),0.5);
+                    const complex<double> phi4 = pow((-(s_0*pow(1.0 + z, 2.0)) + (-1.0 + pow(beta(pow(m_LamB + m_Lam, 2.0)), 2.0) * pow(-1.0 + z,2.0) + 6.0*z -pow(z,2.0))*(s_p))/pow(-1.0 + z, 2.0),0.5);
+                    const complex<double> phi5 = pow((s_0*pow(1.0 + z, 2.0) + (1.0 - pow(beta(Q2),2.0)*pow(-1.0 + z, 2.0) - 6.0*z + pow(z,2.0))*(s_p))/pow(-1.0 + z,2.0),-1.5);
 
                     return Nlambda * pow(1.0 + z, 0.5) * pow(1.-z,-1.5) * phi1 * pow(phi2, -c) * pow(phi3, d) * pow(phi4, e) * phi5;
                 }
@@ -534,10 +532,11 @@ namespace eos
         NameOption opt_formfactor;
         NonlocalFormFactorPtr<nc::OneHalfPlusToOneHalfPlus> nc;
 
-        Implementation(const Parameters & p, const Options & o) :
+        Implementation(const Parameters & p, const Options & o, ParameterUser & u) :
             opt_formfactor(o, "formfactor", qnp::Name("BRvD2021")),
             nc(NonlocalFormFactor<nc::OneHalfPlusToOneHalfPlus>::make(QualifiedName(qnp::Prefix(Process_::label), opt_formfactor.value()), p, o))
         {
+            u.uses(*nc);
         }
 
         ~Implementation() = default;
@@ -545,7 +544,7 @@ namespace eos
 
     template <typename Process_>
     NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>::NonlocalFormFactorObservable(const Parameters & p, const Options & o) :
-        PrivateImplementationPattern<NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>>(new Implementation<NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>>(p, o))
+        PrivateImplementationPattern<NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>>(new Implementation<NonlocalFormFactorObservable<Process_, nc::OneHalfPlusToOneHalfPlus>>(p, o, *this))
     {
     }
 
