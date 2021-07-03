@@ -21,6 +21,7 @@
 #define EOS_GUARD_EOS_RARE_B_DECAYS_NONLOCAL_FORMFACTORS_HH 1
 
 #include <eos/form-factors/mesonic.hh>
+#include <eos/form-factors/baryonic.hh>
 #include <eos/utils/complex.hh>
 #include <eos/utils/diagnostics.hh>
 #include <eos/utils/options.hh>
@@ -318,6 +319,85 @@ namespace eos
     };
     extern template class NonlocalFormFactorObservable<nff::BToKstar, nff::PToV>;
     extern template class NonlocalFormFactorObservable<nff::BsToPhi, nff::PToV>;
+
+
+
+    //  OneHalfPlus -> OneHalfPlus
+
+    template <>
+    class NonlocalFormFactor<nff::OneHalfPlusToOneHalfPlus> :
+        public ParameterUser
+    {
+        public:
+
+            virtual ~NonlocalFormFactor();
+
+            virtual complex<double> H_V_perp(const double & q2) const = 0;
+            virtual complex<double> H_V_long(const double & q2) const = 0;
+
+            virtual complex<double> H_V_perp_residue_jpsi() const = 0;
+            virtual complex<double> H_V_long_residue_jpsi() const = 0;
+
+            virtual complex<double> H_V_perp_residue_psi2s() const = 0;
+            virtual complex<double> H_V_long_residue_psi2s() const = 0;
+
+            virtual complex<double> H_A_perp(const double & q2) const = 0;
+            virtual complex<double> H_A_long(const double & q2) const = 0;
+
+            virtual complex<double> H_A_perp_residue_jpsi() const = 0;
+            virtual complex<double> H_A_long_residue_jpsi() const = 0;
+
+            virtual complex<double> H_A_perp_residue_psi2s() const = 0;
+            virtual complex<double> H_A_long_residue_psi2s() const = 0;
+
+            virtual complex<double> ratio_H_V_long(const double & q2) const = 0;
+            virtual complex<double> ratio_H_V_perp(const double & q2) const = 0;
+            virtual complex<double> ratio_H_A_long(const double & q2) const = 0;
+            virtual complex<double> ratio_H_A_perp(const double & q2) const = 0;
+
+
+            /// Factory method.
+            static NonlocalFormFactorPtr<nff::OneHalfPlusToOneHalfPlus> make(const QualifiedName & name, const Parameters & p, const Options & o);
+
+            ///Internal diagnostics for unit tests
+            virtual Diagnostics diagnostics() const = 0;
+
+    };
+
+    template <typename Process_>
+    class NonlocalFormFactorObservable<Process_, nff::OneHalfPlusToOneHalfPlus> :
+        public ParameterUser,
+        public PrivateImplementationPattern<NonlocalFormFactorObservable<Process_, nff::OneHalfPlusToOneHalfPlus>>
+    {
+        public:
+            NonlocalFormFactorObservable(const Parameters &, const Options &);
+            ~NonlocalFormFactorObservable();
+
+            double re_H_V_perp(const double & q2) const;
+            double im_H_V_perp(const double & q2) const;
+
+            double re_H_V_long(const double & q2) const;
+            double im_H_V_long(const double & q2) const;
+
+            double re_H_A_perp(const double & q2) const;
+            double im_H_A_perp(const double & q2) const;
+
+            double re_H_A_long(const double & q2) const;
+            double im_H_A_long(const double & q2) const;
+
+
+            double re_ratio_H_V_perp(const double & q2) const;
+            double im_ratio_H_V_perp(const double & q2) const;
+            double re_ratio_H_V_long(const double & q2) const;
+            double im_ratio_H_V_long(const double & q2) const;
+
+            double re_ratio_H_A_perp(const double & q2) const;
+            double im_ratio_H_A_perp(const double & q2) const;
+            double re_ratio_H_A_long(const double & q2) const;
+            double im_ratio_H_A_long(const double & q2) const;
+    };
+    extern template class NonlocalFormFactorObservable<nff::LambdabToLambda, nff::OneHalfPlusToOneHalfPlus>;
+
 
     namespace nff_utils
     {

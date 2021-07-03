@@ -31,6 +31,7 @@
 #include <eos/rare-b-decays/inclusive-b-to-s-dilepton.hh>
 #include <eos/rare-b-decays/inclusive-b-to-s-gamma.hh>
 #include <eos/rare-b-decays/lambda-b-to-lambda-dilepton.hh>
+#include <eos/rare-b-decays/lambda-b-to-lambda-charmonium.hh>
 #include <eos/rare-b-decays/nonlocal-formfactors.hh>
 #include <eos/utils/concrete_observable.hh>
 
@@ -1538,6 +1539,172 @@ namespace eos
     }
     // }}}
 
+
+
+
+    // Lambda_b -> Lambda charmonium
+    // {{{
+
+    ObservableGroup
+    make_Lb_to_L_psi_group()
+    {
+        auto imp = new Implementation<ObservableGroup>(
+            R"(Observables in $\Lambda_b \to \Lambda \psi$ decays)",
+            R"(The option "psi" selects charmonium state.)",
+            {
+                //===============Angular-Observable===================//
+                make_observable("Lambda_b->Lambdacharmonium::branching_ratio", R"(\mathcal{B}(\Lambda_b \to \Lambda \psi))",
+                        Unit::None(),
+                        &LambdabToLambdaCharmonium::branching_ratio),
+
+                make_observable("Lambda_b->Lambdacharmonium::K1ss", R"(K_{1ss}(\Lambda_b \to \Lambda \psi))",
+                        Unit::None(),
+                        &LambdabToLambdaCharmonium::K1ss),
+
+                make_observable("Lambda_b->Lambdacharmonium::K1cc", R"(K_{1cc}(\Lambda_b \to \Lambda \psi))",
+                        Unit::None(),
+                        &LambdabToLambdaCharmonium::K1cc),
+
+                make_observable("Lambda_b->Lambdacharmonium::K2ss", R"(K_{2ss}(\Lambda_b \to \Lambda \psi))",
+                        Unit::None(),
+                        &LambdabToLambdaCharmonium::K2ss),
+
+                make_observable("Lambda_b->Lambdacharmonium::K2cc", R"(K_{2ss}(\Lambda_b \to \Lambda \psi))",
+                        Unit::None(),
+                        &LambdabToLambdaCharmonium::K2cc),
+
+                make_observable("Lambda_b->Lambdacharmonium::K3sc", R"(K_{3sc}(\Lambda_b \to \Lambda \psi))",
+                        Unit::None(),
+                        &LambdabToLambdaCharmonium::K3sc),
+
+                make_observable("Lambda_b->Lambdacharmonium::K4sc", R"(K_{4sc}(\Lambda_b \to \Lambda \psi))",
+                        Unit::None(),
+                        &LambdabToLambdaCharmonium::K4sc),
+
+                //===============Parameters===================//
+                make_observable("Lambda_b->Lambdacharmonium::abs_aplus", R"(|a_{+}|)",
+                        Unit::None(),
+                        &LambdabToLambdaCharmonium::abs_aplus),
+                make_observable("Lambda_b->Lambdacharmonium::abs_aminus", R"(|a_{-}|)",
+                        Unit::None(),
+                        &LambdabToLambdaCharmonium::abs_aminus),
+                make_observable("Lambda_b->Lambdacharmonium::abs_bplus", R"(|b_{+}|)",
+                        Unit::None(),
+                        &LambdabToLambdaCharmonium::abs_bplus),
+                make_observable("Lambda_b->Lambdacharmonium::abs_bminus", R"(|b_{-}|)",
+                        Unit::None(),
+                        &LambdabToLambdaCharmonium::abs_bminus),
+
+                make_observable("Lambda_b->Lambdacharmonium::arg_aplus", R"(\text{arg}(a_{+})|)",
+                        Unit::None(),
+                        &LambdabToLambdaCharmonium::arg_aplus),
+                make_observable("Lambda_b->Lambdacharmonium::arg_aminus", R"(\text{arg}(a_{-}))",
+                        Unit::None(),
+                        &LambdabToLambdaCharmonium::arg_aminus),
+                make_observable("Lambda_b->Lambdacharmonium::arg_bplus", R"(\text{arg}(b_{+}))",
+                        Unit::None(),
+                        &LambdabToLambdaCharmonium::arg_bplus),
+                make_observable("Lambda_b->Lambdacharmonium::arg_bminus", R"(\text{arg}(b_{-}))",
+                        Unit::None(),
+                        &LambdabToLambdaCharmonium::arg_bminus),
+                make_observable("Lambda_b->Lambdacharmonium::alpha_b", R"(\alpha_{b})",
+                        Unit::None(),
+                        &LambdabToLambdaCharmonium::alpha_b),
+            }
+        );
+
+        return ObservableGroup(imp);
+    }
+
+    // }}}
+
+
+    // Lambda_b -> Lambda
+    // {{{
+    ObservableGroup
+    make_Lb_to_L_group()
+    {
+        auto imp = new Implementation<ObservableGroup>(
+            R"(Nonlocal form factors in $\Lambda_b \to \Lambda$ transitions)",
+            "",
+            {
+                // Nonlocal form factors 
+                make_observable("Lambda_b->Lambda::re_H_V_perp(q2)", R"(\text{Re}(H_{V, \perp}(q^2)))",
+                        Unit::None(),
+                        &NonlocalFormFactorObservable<nff::LambdabToLambda, nff::OneHalfPlusToOneHalfPlus>::re_H_V_perp,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::im_H_V_perp(q2)", R"(\text{Im}(H_{V, \perp}(q^2)))",
+                        Unit::None(),
+                        &NonlocalFormFactorObservable<nff::LambdabToLambda, nff::OneHalfPlusToOneHalfPlus>::im_H_V_perp,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::re_H_V_long(q2)", R"(\text{Re}(H_{V, 0}(q^2)))",
+                        Unit::None(),
+                        &NonlocalFormFactorObservable<nff::LambdabToLambda, nff::OneHalfPlusToOneHalfPlus>::re_H_V_long,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::im_H_V_long(q2)", R"(\text{Im}(H_{V, 0}(q^2)))",
+                        Unit::None(),
+                        &NonlocalFormFactorObservable<nff::LambdabToLambda, nff::OneHalfPlusToOneHalfPlus>::im_H_V_long,
+                        std::make_tuple("q2")),
+
+                make_observable("Lambda_b->Lambda::re_H_A_perp(q2)", R"(\text{Re}(H_{A, \perp}(q^2)))",
+                        Unit::None(),
+                        &NonlocalFormFactorObservable<nff::LambdabToLambda, nff::OneHalfPlusToOneHalfPlus>::re_H_A_perp,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::im_H_A_perp(q2)", R"(\text{Im}(H_{A, \perp}(q^2)))",
+                        Unit::None(),
+                        &NonlocalFormFactorObservable<nff::LambdabToLambda, nff::OneHalfPlusToOneHalfPlus>::im_H_A_perp,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::re_H_A_long(q2)", R"(\text{Re}(H_{A, 0}(q^2)))",
+                        Unit::None(),
+                        &NonlocalFormFactorObservable<nff::LambdabToLambda, nff::OneHalfPlusToOneHalfPlus>::re_H_A_long,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::im_H_A_long(q2)", R"(\text{Im}(H_{A, 0}(q^2)))",
+                        Unit::None(),
+                        &NonlocalFormFactorObservable<nff::LambdabToLambda, nff::OneHalfPlusToOneHalfPlus>::im_H_A_long,
+                        std::make_tuple("q2")),
+
+                make_observable("Lambda_b->Lambda::re_ratio_H_A_perp(q2)", R"(\text{Re}(H_{A, \perp}(q^2)/F_{A, \perp}(q^2)))",
+                        Unit::None(),
+                        &NonlocalFormFactorObservable<nff::LambdabToLambda, nff::OneHalfPlusToOneHalfPlus>::re_ratio_H_A_perp,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::im_ratio_H_A_perp(q2)", R"(\text{Im}(H_{A, \perp}(q^2)/F_{A, \perp}(q^2)))",
+                        Unit::None(),
+                        &NonlocalFormFactorObservable<nff::LambdabToLambda, nff::OneHalfPlusToOneHalfPlus>::im_ratio_H_A_perp,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::re_ratio_H_A_long(q2)", R"(\text{Re}(H_{A, 0}(q^2)/F_{A, 0}(q^2)))",
+                        Unit::None(),
+                        &NonlocalFormFactorObservable<nff::LambdabToLambda, nff::OneHalfPlusToOneHalfPlus>::re_ratio_H_A_long,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::im_ratio_H_A_long(q2)", R"(\text{Im}(H_{A, 0}(q^2)/F_{A, 0}(q^2)))",
+                        Unit::None(),
+                        &NonlocalFormFactorObservable<nff::LambdabToLambda, nff::OneHalfPlusToOneHalfPlus>::im_ratio_H_A_long,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::re_ratio_H_V_perp(q2)", R"(\text{Re}(H_{V, \perp}(q^2)/F_{V, \perp}(q^2)))",
+                        Unit::None(),
+                        &NonlocalFormFactorObservable<nff::LambdabToLambda, nff::OneHalfPlusToOneHalfPlus>::re_ratio_H_V_perp,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::im_ratio_H_V_perp(q2)", R"(\text{Im}(H_{V, \perp}(q^2)/F_{V, \perp}(q^2)))",
+                        Unit::None(),
+                        &NonlocalFormFactorObservable<nff::LambdabToLambda, nff::OneHalfPlusToOneHalfPlus>::im_ratio_H_V_perp,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::re_ratio_H_V_long(q2)", R"(\text{Re}(H_{V, 0}(q^2)/F_{V, 0}(q^2)))",
+                        Unit::None(),
+                        &NonlocalFormFactorObservable<nff::LambdabToLambda, nff::OneHalfPlusToOneHalfPlus>::re_ratio_H_V_long,
+                        std::make_tuple("q2")),
+                make_observable("Lambda_b->Lambda::im_ratio_H_V_long(q2)", R"(\text{Im}(H_{V, 0}(q^2)/F_{V, 0}(q^2)))",
+                        Unit::None(),
+                        &NonlocalFormFactorObservable<nff::LambdabToLambda, nff::OneHalfPlusToOneHalfPlus>::im_ratio_H_V_long,
+                        std::make_tuple("q2")),
+
+            }
+        );
+
+        return ObservableGroup(imp);
+    }
+    // }}}
+
+
+
     // B -> X_s {gamma, l^+ l^-}
     // {{{
     ObservableGroup
@@ -1675,6 +1842,11 @@ namespace eos
 
                 // Lambda_b -> Lambda l^+ l^-
                 make_lambdab_to_lambda_ll_group(),
+
+                // Lambda_b -> Lambda psi
+                make_Lb_to_L_psi_group(),
+                // Lambda_b -> Lambda
+                make_Lb_to_L_group(),
 
                 // B -> X_s {gamma, l^+ l^-}
                 make_b_to_xs_group(),

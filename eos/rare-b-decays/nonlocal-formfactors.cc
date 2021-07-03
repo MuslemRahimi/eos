@@ -92,6 +92,11 @@ namespace eos
         return complex<double>(0.0);
     }
 
+    // OneHalfPlus -> OneHalfPlus
+    NonlocalFormFactor<nff::OneHalfPlusToOneHalfPlus>::~NonlocalFormFactor()
+    {
+    }
+
     namespace nff_utils
     {
 

@@ -37,6 +37,12 @@ namespace eos
         // forward declarations
         struct BToKstar;
         struct BsToPhi;
+
+        // 1/2+ -> 1/2+
+        struct OneHalfPlusToOneHalfPlus { };
+
+        // forward declarations
+        struct LambdabToLambda;
     }
 }
 

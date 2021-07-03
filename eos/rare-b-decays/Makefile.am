@@ -34,9 +34,11 @@ libeosrarebdecays_la_SOURCES = \
 	hard-scattering.cc hard-scattering.hh \
 	long-distance.cc long-distance.hh \
 	lambda-b-to-lambda-dilepton.cc lambda-b-to-lambda-dilepton.hh \
+	lambda-b-to-lambda-charmonium.cc lambda-b-to-lambda-charmonium.hh \
 	nonlocal-formfactors.hh nonlocal-formfactors.cc nonlocal-formfactors-fwd.hh \
 	nonlocal-formfactors-p-to-p.cc \
 	nonlocal-formfactors-p-to-v.cc \
+	nonlocal-formfactors-onehalfplus-to-onehalfplus.cc \
 	observables.cc observables.hh \
 	qcdf-integrals.cc qcdf-integrals.hh qcdf-integrals-impl.hh\
 	qcdf-integrals-analytical.cc \
@@ -90,9 +92,11 @@ TESTS = \
 	inclusive-b-to-s-dilepton_TEST \
 	inclusive-b-to-s-gamma_TEST \
 	lambda-b-to-lambda-dilepton_TEST \
+	lambda-b-to-lambda-charmonium_TEST
 	long-distance_TEST \
 	nonlocal-formfactors-p-to-p_TEST \
 	nonlocal-formfactors-p-to-v_TEST \
+	#nonlocal-formfactors-onehalfplus-to-onehalfplus_TEST 
 	qcdf-integrals_TEST
 
 LDADD = \
@@ -140,10 +144,14 @@ inclusive_b_to_s_gamma_TEST_SOURCES = inclusive-b-to-s-gamma_TEST.cc
 
 lambda_b_to_lambda_dilepton_TEST_SOURCES = lambda-b-to-lambda-dilepton_TEST.cc
 
+lambda_b_to_lambda_charmonium_TEST_SOURCES = lambda-b-to-lambda-charmonium_TEST.cc
+
 long_distance_TEST_SOURCES = long-distance_TEST.cc
 
 nonlocal_formfactors_p_to_p_TEST_SOURCES = nonlocal-formfactors-p-to-p_TEST.cc
 
 nonlocal_formfactors_p_to_v_TEST_SOURCES = nonlocal-formfactors-p-to-v_TEST.cc
+
+#nonlocal_formfactors_onehalfplus_to_onehalfplus_TEST_SOURCES = nonlocal-formfactors-onehalfplus-to-onehalfplus_TEST.cc
 
 qcdf_integrals_TEST_SOURCES = qcdf-integrals_TEST.cc
